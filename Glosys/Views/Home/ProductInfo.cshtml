@@ -1,42 +1,44 @@
-﻿<section class="product-info">
+﻿@model Product
+
+<section class="product-info">
     <div class="container">
         <div class="photos">
             <div class="big-photo">
-                <img src="img/product-img.png" alt="">
+                <img src="/img/productsPhoto/product-img.png" alt="">
             </div>
             <div class="mini-photos">
                 <div class="item selected-photo">
-                    <img src="img/product-img.png" alt="">
+                    <img src="/img/productsPhoto/product-img.png" alt="">
                 </div>
                 <div class="item">
-                    <img src="img/product-img.png" alt="">
+                    <img src="/img/productsPhoto/product-img.png" alt="">
                 </div>
                 <div class="item">
-                    <img src="img/product-img.png" alt="">
+                    <img src="/img/productsPhoto/product-img.png" alt="">
                 </div>
                 <div class="item">
-                    <img src="img/product-img.png" alt="">
+                    <img src="/img/productsPhoto/product-img.png" alt="">
                 </div>
                 <div class="item">
-                    <img src="img/product-img.png" alt="">
+                    <img src="/img/productsPhoto/product-img.png" alt="">
                 </div>
                 <div class="item">
-                    <img src="img/product-img.png" alt="">
+                    <img src="/img/productsPhoto/product-img.png" alt="">
                 </div>
                 <div class="item">
-                    <img src="img/product-img.png" alt="">
+                    <img src="/img/productsPhoto/product-img.png" alt="">
                 </div>
                 <div class="item">
-                    <img src="img/product-img.png" alt="">
+                    <img src="/img/productsPhoto/product-img.png" alt="">
                 </div>
                 <div class="item">
-                    <img src="img/product-img.png" alt="">
+                    <img src="/img/productsPhoto/product-img.png" alt="">
                 </div>
             </div>
         </div>
         <div class="info">
-            <h1>Project №2</h1>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+            <h1>@Model.ProductName</h1>
+            <p>@Model.ProductInfo</p>
             <ul>
                 <li>
                     <svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -55,7 +57,7 @@
                             </clipPath>
                         </defs>
                     </svg>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                    @Model.ProductInfo
                 </li>
                 <li>
                     <svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -74,7 +76,7 @@
                             </clipPath>
                         </defs>
                     </svg>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                    @Model.ProductInfo
                 </li>
                 <li>
                     <svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -93,7 +95,7 @@
                             </clipPath>
                         </defs>
                     </svg>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                    @Model.ProductInfo
                 </li>
                 <li>
                     <svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -112,7 +114,7 @@
                             </clipPath>
                         </defs>
                     </svg>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                    @Model.ProductInfo
                 </li>
             </ul>
         </div>

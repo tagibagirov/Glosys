@@ -54,17 +54,19 @@ a {
     border-radius: 12px;
     background-color: #EEF1F6;
     color: #96A7B1;
+    border: 0;
+    font-size: 14px;
 }
 
 
 
-.btn-ad-cat {
+.btn-add-cat {
     background-color: #DAF2FA;
     border: 0;
     padding: 12px 25px;
     font-weight: 700;
     border-radius: 12px;
-    font-size: 16px;
+    font-size: 14px;
     color: #22C3F3;
 }
 
@@ -81,16 +83,20 @@ img {
 
 .dropdown {
     display: none;
-    background-color: white;
-    border-radius: 8px;
-    padding: 8px 0;
-    list-style: none;
     position: absolute;
     left: 0;
     min-width: 100%;
-    top: calc(100% + 22px);
+    top: 100%;
     transition: 0.5s;
+    padding-top: 22px;
 }
+
+    .dropdown ul {
+        background-color: white;
+        border-radius: 8px;
+        padding: 8px 0;
+        list-style: none;
+    }
 
 .dropdown-item a {
     padding: 10px 20px;
@@ -98,11 +104,13 @@ img {
     display: block;
     white-space: nowrap;
     font-weight: 600;
+    /*transition: 0.5s;*/
 }
 
     .dropdown-item a:hover {
         background-color: #F2F7FA;
         color: #22C3F3;
+        /*transition: 0.5s;*/
     }
 
 .dropdown-active {
@@ -111,11 +119,10 @@ img {
 }
 
 .show-dropdown .dropdown {
-    transition: 0.5s;
     display: block;
 }
 
-.show-dropdown svg {
+.show-dropdown .fa-angle-down {
     transition: 0.5s;
     transform: rotate(180deg);
 }
@@ -162,6 +169,12 @@ nav .container {
     color: white;
 }
 
+nav .fa-angle-down {
+    font-size: 13px;
+    margin-top: 3px;
+    transition: 0.5s;
+}
+
 .nav-scrolled .nav-item,
 .nav-scrolled .nav-link,
 .nav-scrolled .nav-right .lang span {
@@ -170,14 +183,22 @@ nav .container {
 
 .solutions {
     position: relative;
+    /*transition: 0.5s;*/
 }
 
     .solutions:hover {
         color: #22C3F3;
+        transition: 0.5s;
     }
 
         .solutions:hover .dropdown {
             display: block;
+            /*transition: 0.5s;*/
+        }
+
+        .solutions:hover .fa-angle-down {
+            /*transition: 0.5s;*/
+            transform: rotate(180deg);
         }
 
 .nav-right {
@@ -229,13 +250,9 @@ nav .container {
     position: relative;
 }
 
-.lang svg {
-    transition: 0.5s;
-}
-
-.nav-right .lang .dropdown-item a {
-    text-align: center;
-}
+    .nav-right .lang .dropdown-item a {
+        text-align: center;
+    }
 
 /* NAV END */
 
@@ -324,8 +341,18 @@ footer {
     justify-content: center;
 }
 
-/* SLIDERS END */
 
+.sliders .swiper-button-next, .sliders .swiper-button-prev {
+    font-size: 20px;
+    border-radius: 100%;
+    background-color: white;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* SLIDERS END */
 .home-products {
     padding-top: 30px;
 }
@@ -375,6 +402,7 @@ footer {
 }
 
 .product-card .card-text p {
+    height: 36px;
     font-size: 14px;
     transition: .5s;
 }
@@ -651,10 +679,14 @@ footer .bottom {
         margin-top: 20px;
     }
 
+.category-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
 /* PRODUCTS, SERVICES END */
-
 /*  PRODUCT-INFO, CONTACTS */
-
 .product-info,
 .contacts {
     padding: 120px 0;
@@ -865,12 +897,7 @@ footer .bottom {
     z-index: 99;
 }
 
-/* body {
-    overflow: hidden;
-} */
-
-.dlt-product-modal {
-    display: none;
+.dlt-modal {
     text-align: center;
 }
 
@@ -938,18 +965,12 @@ footer .bottom {
             color: white;
         }
 
-.modal .input-form {
+.input-form {
     margin-bottom: 30px;
+    position: relative;
 }
 
-    .modal .input-form label {
-        color: #0A4F7D;
-        font-weight: 500;
-        margin-bottom: 10px;
-        display: block;
-    }
-
-    .modal .input-form input {
+    .input-form input {
         width: 100%;
         padding: 10px 15px;
         border-radius: 16px;
@@ -960,12 +981,141 @@ footer .bottom {
         color: #0A4F7D;
     }
 
-        .modal .input-form input:focus {
-            border: 1px solid #0A4F7D;
-        }
+    .input-form .placeholder {
+        font-size: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 60px;
+        position: absolute;
+        color: #7C9AAE;
+        transition: 0.5s;
+    }
 
-        .modal .input-form input::placeholder {
-            color: #7C9AAE;
-        }
+    .input-form input:focus {
+        border: 1px solid #0A4F7D;
+        background-color: white;
+    }
+.input-focus {
+    border: 1px solid #C9DAE5 !important;
+    background-color: white !important;
+}
 
+.placeholder-active {
+    top: -2px !important;
+    left: 23px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    background-color: white !important;
+    color: #0A4F7D !important;
+    transition: 0.5s;
+}
 /* ADMIN PRODUCTS END */
+/*LOGIN*/
+.login {
+    background: #1997c6;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box {
+    width: 35%;
+    text-align: center;
+}
+
+.login h2 {
+    color: white;
+    font-weight: 700;
+    font-size: 43px;
+    text-transform: uppercase;
+}
+
+.login-top {
+    margin-top: 30px;
+    border-radius: 16px;
+    border: 10px solid rgba(34, 195, 243, 0.26);
+    box-shadow: 0px 12px 45px 0px #0587B9;
+}
+
+.login-bottom {
+    padding: 50px;
+    width: 100%;
+    overflow: hidden;
+    background: #FFF;
+    border-radius: 6px;
+}
+
+.login h3 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.login p {
+    color: #7C9AAE;
+}
+
+.login form {
+    margin-top: 56px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+    .login form > * {
+        width: 100%;
+    }
+
+.login .input-form {
+    margin: 0;
+}
+
+.login form a {
+    width: fit-content;
+    color: #22C3F3;
+    margin-left: auto;
+}
+
+.login form button {
+    display: flex;
+    padding: 10px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 13px;
+    border-radius: 16px;
+    background: #22C3F3;
+    box-shadow: 0px 4px 10px 0px rgba(69, 175, 206, 0.25);
+    border: 0;
+    color: white;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.login input {
+    padding-left: 60px;
+    padding-right: 33px;
+}
+
+.login .icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 15px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    color: #7C9AAE;
+    background-color: white;
+}
+
+.login .lock {
+    left: unset;
+    right: 15px;
+    background-color: unset;
+}

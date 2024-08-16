@@ -10,32 +10,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/site.css">
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
 </head>
 
 <body>
-    <nav>
+    <nav class="nav-scrolled">
         <div class="container">
             <div class="nav-left">
-                <a href="/home/index"><img src="/img/GLOSYS.png" alt="GLOSYS LOGO"></a>
+                <a href="/home/index"><img src="/img/GLOSYS-dark.png" alt="GLOSYS LOGO"></a>
                 <ul class="nav-menu">
                     <li class="nav-item"><a class="nav-link" href="/home/index">Home</a></li>
                     <li class="nav-item solutions">
                         IT Solutions
-                        <svg width="10" height="6" viewBox="0 0 10 6" fill="none"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9.08317 1.25L6.1665 4.25994C6.01653 4.41884 5.8357 4.54542 5.63509 4.63193C5.43448 4.71844 5.2183 4.76312 4.99984 4.76312C4.78138 4.76312 4.5652 4.71844 4.36453 4.63193C4.16392 4.54542 3.98315 4.41884 3.83317 4.25994L0.916504 1.25"
-                                  stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        <ul class="dropdown">
-                            <li class="dropdown-item"><a href="">Data Center Solutions</a></li>
-                            <li class="dropdown-item"><a href="">Network Infrastructure Solutions</a></li>
-                            <li class="dropdown-item"><a href="">Business Continuity Solutions</a></li>
-                            <li class="dropdown-item"><a href="">Power & Cooling Systems</a></li>
-                            <li class="dropdown-item"><a href="">Audio & Video Solutions</a></li>
-                        </ul>
+                        <i class="fa-solid fa-angle-down"></i>
+                        <div class="dropdown">
+                            <ul>
+                                <li class="dropdown-item"><a href="">Data Center Solutions</a></li>
+                                <li class="dropdown-item"><a href="">Network Infrastructure Solutions</a></li>
+                                <li class="dropdown-item"><a href="">Business Continuity Solutions</a></li>
+                                <li class="dropdown-item"><a href="">Power & Cooling Systems</a></li>
+                                <li class="dropdown-item"><a href="">Audio & Video Solutions</a></li>
+                            </ul>
+                        </div>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="/home/products">Projects</a></li>
                     <li class="nav-item"><a class="nav-link" href="/home/services">Services</a></li>
@@ -46,7 +45,7 @@
                 <label for="">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M13.3333 13.3333L10.5355 10.5355C10.5355 10.5355 9.33333 12 7 12C4.23857 12 2 9.7614 2 7C2 4.23857 4.23857 2 7 2C9.7614 2 12 4.23857 12 7C12 7.34247 11.9656 7.67687 11.9 8"
-                              stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                              stroke="#002E4C" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                     <input type="text" placeholder="Search">
                     <span>Search</span>
@@ -54,17 +53,15 @@
                 <div class="lang">
                     <span>
                         EN
-                        <svg width="10" height="6" viewBox="0 0 10 6" fill="none"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9.08317 1.25L6.1665 4.25994C6.01653 4.41884 5.8357 4.54542 5.63509 4.63193C5.43448 4.71844 5.2183 4.76312 4.99984 4.76312C4.78138 4.76312 4.5652 4.71844 4.36453 4.63193C4.16392 4.54542 3.98315 4.41884 3.83317 4.25994L0.916504 1.25"
-                                  stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
+                        <i class="fa-solid fa-angle-down"></i>
                     </span>
-                    <ul class="dropdown">
-                        <li class="dropdown-item"><a class="dropdown-active" href="">EN</a></li>
-                        <li class="dropdown-item"><a href="">AZ</a></li>
-                        <li class="dropdown-item"><a href="">RU</a></li>
-                    </ul>
+                    <div class="dropdown">
+                        <ul>
+                            <li class="dropdown-item"><a class="dropdown-active" href="">EN</a></li>
+                            <li class="dropdown-item"><a href="">AZ</a></li>
+                            <li class="dropdown-item"><a href="">RU</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -74,7 +71,7 @@
         <div class="top">
             <div class="container">
                 <div class="left">
-                    <a href="/home/index"><img src="img/logo.png" alt=""></a>
+                    <a href="/home/index"><img src="/img/logo.png" alt=""></a>
                     <ul>
                         <li><strong>Address: </strong> Ahmad Rajabli, Chinar Park, 1/69</li>
                         <li><strong>Phone: </strong> +994125001280</li>
@@ -193,9 +190,7 @@
             <p>Copyright © 2024, NaN Agency. All Rights Reserved</p>
         </div>
     </footer>
-
-
-
+    @RenderSection("Scripts", required: false)
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="/js/site.js"></script>
 </body>

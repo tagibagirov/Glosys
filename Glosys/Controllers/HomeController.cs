@@ -1,30 +1,45 @@
 using Glosys.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Linq.Expressions;
 
 namespace Glosys.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly GlosysContext _sql;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, GlosysContext sql)
         {
             _logger = logger;
+            _sql = sql;
         }
 
         public IActionResult Index()
         {
+            ViewBag.Products = _sql.Products.ToList();
             return View();
         }
 
         public IActionResult Products()
         {
-            return View();
+            ViewBag.CategoreList = _sql.Categories.ToList();
+            return View(_sql.Products.ToList());
         }
-        public IActionResult ProductInfo()
+        public IActionResult Filter(int catId)
         {
-            return View();
+            IQueryable<Product> productList = _sql.Products;
+            if (catId != 0)
+            {
+                productList = _sql.Products.Where(x => x.ProductCategoryId == catId);
+            }
+            return Ok(productList);
+        }
+        public IActionResult ProductInfo(int id)
+        {
+            Product product = _sql.Products.FirstOrDefault(x => x.ProductId == id);
+            return View(product);
         }
         public IActionResult Services()
         {

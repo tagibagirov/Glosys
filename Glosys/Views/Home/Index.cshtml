@@ -27,76 +27,24 @@
         <div class="bottom">
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <div class="card-image">
-                                <img src="/img/product-img.png" alt="Product Image">
-                            </div>
-                            <div class="card-text">
-                                <h3>Project №1</h3>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            </div>
-                            <div class="card-btn">
-                                <a class="btn btn-medium btn-blue" href="">Learn more</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <div class="card-image">
-                                <img src="/img/product-img.png" alt="Product Image">
-                            </div>
-                            <div class="card-text">
-                                <h3>Project №1</h3>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            </div>
-                            <div class="card-btn">
-                                <a class="btn btn-medium btn-blue" href="">Learn more</a>
+                    @foreach (Product item in ViewBag.Products)
+                    {
+                        <div class="swiper-slide">
+                            <div class="product-card" productId="@item.ProductId">
+                                <div class="card-image">
+                                    <img src="/img/productsPhoto/product-img.png" alt="Product Image">
+                                </div>
+                                <div class="card-text">
+                                    <h3>@item.ProductName</h3>
+                                    <p>@item.ProductInfo</p>
+                                </div>
+                                <div class="card-btn">
+                                    <a class="btn btn-medium btn-blue" href="/home/productInfo/@item.ProductId">Learn more</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <div class="card-image">
-                                <img src="/img/product-img.png" alt="Product Image">
-                            </div>
-                            <div class="card-text">
-                                <h3>Project №1</h3>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            </div>
-                            <div class="card-btn">
-                                <a class="btn btn-medium btn-blue" href="">Learn more</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <div class="card-image">
-                                <img src="/img/product-img.png" alt="Product Image">
-                            </div>
-                            <div class="card-text">
-                                <h3>Project №1</h3>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            </div>
-                            <div class="card-btn">
-                                <a class="btn btn-medium btn-blue" href="">Learn more</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <div class="card-image">
-                                <img src="/img/product-img.png" alt="Product Image">
-                            </div>
-                            <div class="card-text">
-                                <h3>Project №1</h3>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            </div>
-                            <div class="card-btn">
-                                <a class="btn btn-medium btn-blue" href="">Learn more</a>
-                            </div>
-                        </div>
-                    </div>
+                    }
+
                 </div>
             </div>
         </div>
@@ -202,6 +150,8 @@
                         <img src="/img/partners-logo/Trend_Micro_Logo_2023 1.png" alt="">
                     </div>
                 </div>
+                <div class="swiper-button-next"><i class="fa-solid fa-caret-right"></i></div>
+                <div class="swiper-button-prev"><i class="fa-solid fa-caret-left"></i></div>
             </div>
         </div>
     </div>
@@ -244,3 +194,34 @@
             width="800" height="200" style="border:0;" allowfullscreen="" loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"></iframe>
 </section>
+
+@section Scripts {
+    <script>
+        const box = document.querySelector("nav");
+        const svgItem = document.querySelectorAll("nav svg path")
+        const logo = document.querySelector(".nav-left img")
+        if (window.scrollY == 0) {
+            box.classList.remove('nav-scrolled');
+            svgItem.forEach(function (element) {
+                element.setAttribute('stroke', 'white')
+            })
+            logo.setAttribute('src', '/img/GLOSYS.png')
+        }
+        document.addEventListener('scroll', function () {
+
+            if (window.scrollY > 0) {
+                box.classList.add('nav-scrolled');
+                svgItem.forEach(function (element) {
+                    element.setAttribute('stroke', '#002E4C')
+                })
+                logo.setAttribute('src', '/img/GLOSYS-dark.png')
+            } else {
+                box.classList.remove('nav-scrolled');
+                svgItem.forEach(function (element) {
+                    element.setAttribute('stroke', 'white')
+                })
+                logo.setAttribute('src', '/img/GLOSYS.png')
+            }
+        });
+    </script>
+}
