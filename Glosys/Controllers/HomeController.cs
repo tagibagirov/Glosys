@@ -1,5 +1,6 @@
 using Glosys.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Linq.Expressions;
 
@@ -18,27 +19,24 @@ namespace Glosys.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Products = _sql.Products.ToList();
+            ViewBag.Products = _sql.Products.Include(x=>x.ProductPhotos).ToList();
             return View();
         }
 
-        public IActionResult Products()
+        public IActionResult Products(int id)
         {
-            ViewBag.CategoreList = _sql.Categories.ToList();
-            return View(_sql.Products.ToList());
-        }
-        public IActionResult Filter(int catId)
-        {
-            IQueryable<Product> productList = _sql.Products;
-            if (catId != 0)
+            var productList = _sql.Products.Include(x => x.ProductPhotos).AsQueryable();
+            if (id != 0)
             {
-                productList = _sql.Products.Where(x => x.ProductCategoryId == catId);
+                productList = productList.Where(x => x.ProductCategoryId == id);
             }
-            return Ok(productList);
+            ViewBag.CategoreList = _sql.Categories.ToList();
+            return View(productList.ToList());
         }
         public IActionResult ProductInfo(int id)
         {
-            Product product = _sql.Products.FirstOrDefault(x => x.ProductId == id);
+
+            Product product = _sql.Products.Include(x=>x.ProductPhotos).FirstOrDefault(x => x.ProductId == id);
             return View(product);
         }
         public IActionResult Services()

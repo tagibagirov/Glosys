@@ -1,0 +1,74 @@
+﻿@model Product
+<section class="add-product">
+    <form asp-controller="admin" asp-action="addproduct" method="post" enctype="multipart/form-data" class="add-product-box">
+        <h2>Add Project</h2>
+        <div class="input-form">
+            <label for="ProductName" class="placeholder">Project name</label>
+            <input class="form-item" asp-for="ProductName" />
+        </div>
+        <div class="input-form">
+            <label for="ProductInfo" class="placeholder">Description</label>
+            <textarea class="form-item" rows="4" asp-for="ProductInfo"></textarea>
+        </div>
+        <div class="input-form">
+            <label for="ProductCategoryId" class="select-cat">
+                <span>Select Category</span>
+                <i class="fa-solid fa-angle-down"></i>
+                <div class="dropdown">
+                    <ul>
+                        <li class="dropdown-item" catId="">Select Category</li>
+                        @foreach (Category category in ViewBag.Categories)
+                        {
+                            <li class="dropdown-item" catId="@category.CategoryId">@category.CategoryName</li>
+                        }
+                    </ul>
+                </div>
+            </label>
+            <input class="form-item" asp-for="ProductCategoryId"  type="hidden"/>
+        </div>
+        <div class="input-form" style="margin-bottom:0;">
+            <label class="add-product-photo" for="projectPhoto">
+                Add Photo
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-camera-fill" viewBox="0 0 16 16">
+                    <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+                    <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0" />
+                </svg>
+            </label>
+            <input class="form-item" name="productPhotos" id="projectPhoto" type="file" style="display: none;" />
+        </div>
+        <div class="add-photo-list" style="margin-top: 15px;">
+            
+        </div>
+        <button style="margin-top: 30px;">Add<i class="fa-solid fa-plus-minus"></i></button>
+    </form>
+</section>
+@section Scripts {
+    <script>
+        const box = document.querySelector("nav");
+        const svgItem = document.querySelectorAll("nav svg path")
+        const logo = document.querySelector(".nav-left img")
+        if (window.scrollY == 0) {
+            box.classList.remove('nav-scrolled');
+            svgItem.forEach(function (element) {
+                element.setAttribute('stroke', 'white')
+            })
+            logo.setAttribute('src', '/img/GLOSYS.png')
+        }
+        document.addEventListener('scroll', function () {
+
+            if (window.scrollY > 0) {
+                box.classList.add('nav-scrolled');
+                svgItem.forEach(function (element) {
+                    element.setAttribute('stroke', '#002E4C')
+                })
+                logo.setAttribute('src', '/img/GLOSYS-dark.png')
+            } else {
+                box.classList.remove('nav-scrolled');
+                svgItem.forEach(function (element) {
+                    element.setAttribute('stroke', 'white')
+                })
+                logo.setAttribute('src', '/img/GLOSYS.png')
+            }
+        });
+    </script>
+}

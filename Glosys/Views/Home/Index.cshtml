@@ -32,7 +32,7 @@
                         <div class="swiper-slide">
                             <div class="product-card" productId="@item.ProductId">
                                 <div class="card-image">
-                                    <img src="/img/productsPhoto/product-img.png" alt="Product Image">
+                                    <img src="/img/productsPhoto/@item.ProductPhotos.FirstOrDefault().PhotoName" alt="Product Image">
                                 </div>
                                 <div class="card-text">
                                     <h3>@item.ProductName</h3>
@@ -44,9 +44,10 @@
                             </div>
                         </div>
                     }
-
                 </div>
             </div>
+            <div class="swiper-button-next"><i class="fa-solid fa-caret-right"></i></div>
+            <div class="swiper-button-prev"><i class="fa-solid fa-caret-left"></i></div>
         </div>
     </div>
 </section>
@@ -111,6 +112,8 @@
 
                 </div>
             </div>
+            <div class="swiper-button-next"><i class="fa-solid fa-caret-right"></i></div>
+            <div class="swiper-button-prev"><i class="fa-solid fa-caret-left"></i></div>
         </div>
     </div>
 </section>
@@ -150,8 +153,6 @@
                         <img src="/img/partners-logo/Trend_Micro_Logo_2023 1.png" alt="">
                     </div>
                 </div>
-                <div class="swiper-button-next"><i class="fa-solid fa-caret-right"></i></div>
-                <div class="swiper-button-prev"><i class="fa-solid fa-caret-left"></i></div>
             </div>
         </div>
     </div>

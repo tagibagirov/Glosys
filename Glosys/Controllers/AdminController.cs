@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text.Json;
 
 namespace Glosys.Controllers
 {
@@ -39,7 +42,7 @@ namespace Glosys.Controllers
                 var princ = new ClaimsPrincipal(identity);
                 var props = new AuthenticationProperties();
                 HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, princ, props).Wait();
-                return RedirectToAction("AdminProduct", "admin");
+                return RedirectToAction("index", "home");
             }
             else
             {
@@ -52,18 +55,28 @@ namespace Glosys.Controllers
             HttpContext.SignOutAsync().Wait();
             return RedirectToAction("index", "home");
         }
-        public IActionResult AdminProduct()
+        public IActionResult AdminProduct(int id)
         {
+            var productList = _sql.Products.Include(x => x.ProductPhotos).AsQueryable();
+            if (id != 0)
+            {
+                productList = productList.Where(x => x.ProductCategoryId == id);
+            }
             ViewBag.CategoreList = _sql.Categories.ToList();
-            IQueryable<Product> productList = _sql.Products;
             return View(productList.ToList());
+        }
+        public IActionResult AddProduct()
+        {
+            ViewBag.Categories = _sql.Categories.ToList();
+            return View();
         }
         [HttpPost]
         public IActionResult AddProduct(Product product, IFormFile[] productPhotos)
         {
+            ViewBag.Categories = _sql.Categories.ToList();
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return View();
             }
             _sql.Products.Add(product);
             _sql.SaveChanges();
@@ -82,38 +95,56 @@ namespace Glosys.Controllers
                 _sql.ProductPhotos.Add(productPhoto);
                 _sql.SaveChanges();
             }
-            return Ok();
+            return RedirectToAction("adminproduct", "admin");
+        }
+        public IActionResult EditProduct(int id)
+        {
+            var product = _sql.Products.Include(x => x.ProductCategory).Include(x => x.ProductPhotos).SingleOrDefault(x => x.ProductId == id);
+            ViewBag.Categories = _sql.Categories.ToList();
+            return View(product);
         }
         [HttpPost]
-        public IActionResult EditProduct(int id, Product product, IFormFile[] productPhotos)
+        public IActionResult EditProduct(int id, Product product, IFormFile[] productPhotos, string DeletedPhoto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            var existingProduct = _sql.Products.SingleOrDefault(x => x.ProductId == id);
+            ViewBag.Categories = _sql.Categories.ToList();
+            var existingProduct = _sql.Products.Include(x => x.ProductCategory).Include(x => x.ProductPhotos).SingleOrDefault(x => x.ProductId == id);
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(product);
+            //}
             existingProduct.ProductName = product.ProductName;
             existingProduct.ProductInfo = product.ProductInfo;
-            existingProduct.ProductCategory = product.ProductCategory;
-            var existingPhotos = _sql.ProductPhotos.Where(x => x.PhotoProductId == id).ToList();
-            _sql.ProductPhotos.RemoveRange(existingPhotos);
-            _sql.SaveChanges();
-            foreach (var item in productPhotos)
+            existingProduct.ProductCategoryId = product.ProductCategoryId;
+            if (!string.IsNullOrEmpty(DeletedPhoto))
             {
-                string filename = Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + Path.GetExtension(item.FileName);
-                using (Stream stream = new FileStream("wwwroot/img/productsPhoto/" + filename, FileMode.Create))
+                List<int> existingPhotoIdList = JsonSerializer.Deserialize<List<int>>(json: DeletedPhoto);
+                if (existingPhotoIdList != null && existingPhotoIdList.Count > 0)
                 {
-                    item.CopyTo(stream);
+                    var existingPhotoList = _sql.ProductPhotos.Where(x => existingPhotoIdList.Contains((int)x.PhotoId));
+                    _sql.ProductPhotos.RemoveRange(existingPhotoList);
+                    _sql.SaveChanges();
                 }
-                var productPhoto = new ProductPhoto
-                {
-                    PhotoName = filename,
-                    PhotoProductId = product.ProductId
-                };
-                _sql.ProductPhotos.Add(productPhoto);
-                _sql.SaveChanges();
             }
-            return Ok();
+            if (productPhotos != null && productPhotos.Length > 0)
+            {
+                foreach (var item in productPhotos)
+                {
+                    string filename = Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + Path.GetExtension(item.FileName);
+                    using (Stream stream = new FileStream("wwwroot/img/productsPhoto/" + filename, FileMode.Create))
+                    {
+                        item.CopyTo(stream);
+                    }
+                    var productPhoto = new ProductPhoto
+                    {
+                        PhotoName = filename,
+                        PhotoProductId = id
+                    };
+                    _sql.ProductPhotos.Add(productPhoto);
+                    _sql.SaveChanges();
+                }
+            }
+            _sql.SaveChanges();
+            return RedirectToAction("adminproduct", "admin");
         }
         [HttpDelete]
         public IActionResult DeleteProduct(int id)
@@ -124,23 +155,23 @@ namespace Glosys.Controllers
             return Ok();
         }
         [HttpPost]
-        public IActionResult AddCategory(Category category)
+        public IActionResult AddCategory([FromBody] Category category)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
             _sql.Categories.Add(category);
             _sql.SaveChanges();
             return Ok(category);
         }
         [HttpPost]
-        public IActionResult EditCategory(int id, Category category)
+        public IActionResult EditCategory(int id, [FromBody] Category category)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
             var existingCategory = _sql.Categories.SingleOrDefault(x => x.CategoryId == id);
             existingCategory.CategoryName = category.CategoryName;
             _sql.SaveChanges();
@@ -150,7 +181,9 @@ namespace Glosys.Controllers
         public IActionResult DeleteCategory(int id)
         {
             var category = _sql.Categories.SingleOrDefault(x => x.CategoryId == id);
-            return Ok(category);
+            _sql.Categories.Remove(category);
+            _sql.SaveChanges();
+            return Ok();
         }
         public IActionResult AdminService()
         {

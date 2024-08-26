@@ -7,10 +7,16 @@
             <h2>PROJECTS</h2>
         </div>
         <div class="filter">
-            <button catId="0" class="btn-gray btn-gray-active filter-item">All</button>
+            <a href="/home/products" catId="0" style="padding: 12px 25px" class="btn-gray btn-gray-active filter-item">
+                All
+            </a>
             @foreach (Category cat in ViewBag.CategoreList)
             {
-                <button catId="@cat.CategoryId" class="btn-gray filter-item">@cat.CategoryName</button>
+                <div class="btn-gray filter-item" catId="@cat.CategoryId">
+                    <a href="/home/products/@cat.CategoryId">
+                        @cat.CategoryName
+                    </a>
+                </div>
             }
         </div>
         <div class="bottom product-lists">
@@ -19,7 +25,7 @@
                 <div class="box">
                     <div class="product-card" productId="@item.ProductId">
                         <div class="card-image">
-                            <img src="/img/productsPhoto/product-img.png" alt="Product Image">
+                            <img src="/img/productsPhoto/@item.ProductPhotos.FirstOrDefault().PhotoName" alt="Product Image">
                         </div>
                         <div class="card-text">
                             <h3>@item.ProductName</h3>
@@ -31,7 +37,7 @@
                     </div>
                 </div>
             }
-            
+
         </div>
     </div>
 </section>

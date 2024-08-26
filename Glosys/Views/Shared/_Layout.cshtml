@@ -28,26 +28,26 @@
                         <i class="fa-solid fa-angle-down"></i>
                         <div class="dropdown">
                             <ul>
-                                <li class="dropdown-item"><a href="">Data Center Solutions</a></li>
-                                <li class="dropdown-item"><a href="">Network Infrastructure Solutions</a></li>
-                                <li class="dropdown-item"><a href="">Business Continuity Solutions</a></li>
-                                <li class="dropdown-item"><a href="">Power & Cooling Systems</a></li>
-                                <li class="dropdown-item"><a href="">Audio & Video Solutions</a></li>
+                                <li><a href="" class="dropdown-item">Data Center Solutions</a></li>
+                                <li><a href="" class="dropdown-item">Network Infrastructure Solutions</a></li>
+                                <li><a href="" class="dropdown-item">Business Continuity Solutions</a></li>
+                                <li><a href="" class="dropdown-item">Power & Cooling Systems</a></li>
+                                <li><a href="" class="dropdown-item">Audio & Video Solutions</a></li>
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="/home/products">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/home/services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="@(User.Identity.IsAuthenticated ? "/admin/adminproduct" :"/home/products")">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="@(User.Identity.IsAuthenticated ? "/admin/adminservice" :"/home/services")">Services</a></li>
                     <li class="nav-item"><a class="nav-link" href="/home/contacts">Contacts</a></li>
                 </ul>
             </div>
             <div class="nav-right">
-                <label for="">
+                <label for="search">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M13.3333 13.3333L10.5355 10.5355C10.5355 10.5355 9.33333 12 7 12C4.23857 12 2 9.7614 2 7C2 4.23857 4.23857 2 7 2C9.7614 2 12 4.23857 12 7C12 7.34247 11.9656 7.67687 11.9 8"
                               stroke="#002E4C" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <input type="text" placeholder="Search">
+                    <input type="text" id="search" placeholder="Search">
                     <span>Search</span>
                 </label>
                 <div class="lang">
@@ -57,12 +57,19 @@
                     </span>
                     <div class="dropdown">
                         <ul>
-                            <li class="dropdown-item"><a class="dropdown-active" href="">EN</a></li>
-                            <li class="dropdown-item"><a href="">AZ</a></li>
-                            <li class="dropdown-item"><a href="">RU</a></li>
+                            <li><a class="dropdown-item dropdown-active" href="">EN</a></li>
+                            <li><a class="dropdown-item" href="">AZ</a></li>
+                            <li><a class="dropdown-item" href="">RU</a></li>
                         </ul>
                     </div>
                 </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a href="/admin/logout" class="logout">
+                        Logout
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    </a>
+                }
             </div>
         </div>
     </nav>
