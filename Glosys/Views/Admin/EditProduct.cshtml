@@ -57,31 +57,34 @@
 </section>
 @section Scripts {
     <script>
-        const box = document.querySelector("nav");
-        const svgItem = document.querySelectorAll("nav svg path")
-        const logo = document.querySelector(".nav-left img")
-        if (window.scrollY == 0) {
-            box.classList.remove('nav-scrolled');
-            svgItem.forEach(function (element) {
-                element.setAttribute('stroke', 'white')
-            })
-            logo.setAttribute('src', '/img/GLOSYS.png')
-        }
-        document.addEventListener('scroll', function () {
-
-            if (window.scrollY > 0) {
-                box.classList.add('nav-scrolled');
-                svgItem.forEach(function (element) {
-                    element.setAttribute('stroke', '#002E4C')
-                })
-                logo.setAttribute('src', '/img/GLOSYS-dark.png')
-            } else {
+        if ($(window).width() >= 768) {
+            const box = document.querySelector("nav");
+            const svgItem = document.querySelectorAll("nav svg path")
+            const logo = document.querySelector(".nav-left img")
+            if (window.scrollY == 0) {
                 box.classList.remove('nav-scrolled');
                 svgItem.forEach(function (element) {
                     element.setAttribute('stroke', 'white')
                 })
                 logo.setAttribute('src', '/img/GLOSYS.png')
             }
-        });
+            document.addEventListener('scroll', function () {
+
+                if (window.scrollY > 0) {
+                    box.classList.add('nav-scrolled');
+                    svgItem.forEach(function (element) {
+                        element.setAttribute('stroke', '#002E4C')
+                    })
+                    logo.setAttribute('src', '/img/GLOSYS-dark.png')
+                } else {
+                    box.classList.remove('nav-scrolled');
+                    svgItem.forEach(function (element) {
+                        element.setAttribute('stroke', 'white')
+                    })
+                    logo.setAttribute('src', '/img/GLOSYS.png')
+                }
+            });
+        }
+
     </script>
 }

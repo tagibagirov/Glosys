@@ -3,6 +3,19 @@
 
 <section class="products sliders">
     <div class="container">
+        <div class="media-filter">
+            <a href="/home/products" catId="0" style="padding: 12px 25px" class="btn-gray btn-gray-active filter-item">
+                All
+            </a>
+            @foreach (Category cat in ViewBag.CategoreList)
+            {
+                <div class="btn-gray filter-item" catId="@cat.CategoryId">
+                    <a href="/home/products/@cat.CategoryId">
+                        @cat.CategoryName
+                    </a>
+                </div>
+            }
+        </div>
         <div class="title">
             <h2>PROJECTS</h2>
         </div>
@@ -37,7 +50,25 @@
                     </div>
                 </div>
             }
-
+        </div>
+        <div class="bottom-media product-lists">
+            @foreach (var item in Model)
+            {
+                <div class="box">
+                    <div class="product-card" productId="@item.ProductId">
+                        <div class="card-image">
+                            <img src="/img/productsPhoto/@item.ProductPhotos.FirstOrDefault().PhotoName" alt="Product Image">
+                        </div>
+                        <div class="card-text">
+                            <h3>@item.ProductName</h3>
+                            <p>@item.ProductInfo</p>
+                        </div>
+                        <div class="card-btn">
+                            <a class="btn btn-medium btn-blue" href="/home/productInfo/@item.ProductId">Learn more</a>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </section>

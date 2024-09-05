@@ -24,7 +24,7 @@
                     </ul>
                 </div>
             </label>
-            <input class="form-item" asp-for="ProductCategoryId"  type="hidden"/>
+            <input class="form-item" asp-for="ProductCategoryId" type="hidden" />
         </div>
         <div class="input-form" style="margin-bottom:0;">
             <label class="add-product-photo" for="projectPhoto">
@@ -37,38 +37,40 @@
             <input class="form-item" name="productPhotos" id="projectPhoto" type="file" style="display: none;" />
         </div>
         <div class="add-photo-list" style="margin-top: 15px;">
-            
         </div>
-        <button style="margin-top: 30px;">Add<i class="fa-solid fa-plus-minus"></i></button>
+        <button>Add<i class="fa-solid fa-plus-minus"></i></button>
     </form>
 </section>
 @section Scripts {
     <script>
-        const box = document.querySelector("nav");
-        const svgItem = document.querySelectorAll("nav svg path")
-        const logo = document.querySelector(".nav-left img")
-        if (window.scrollY == 0) {
-            box.classList.remove('nav-scrolled');
-            svgItem.forEach(function (element) {
-                element.setAttribute('stroke', 'white')
-            })
-            logo.setAttribute('src', '/img/GLOSYS.png')
-        }
-        document.addEventListener('scroll', function () {
+        if ($(window).width() >= 768) {
 
-            if (window.scrollY > 0) {
-                box.classList.add('nav-scrolled');
-                svgItem.forEach(function (element) {
-                    element.setAttribute('stroke', '#002E4C')
-                })
-                logo.setAttribute('src', '/img/GLOSYS-dark.png')
-            } else {
+            const box = document.querySelector("nav");
+            const svgItem = document.querySelectorAll("nav svg path")
+            const logo = document.querySelector(".nav-left img")
+            if (window.scrollY == 0) {
                 box.classList.remove('nav-scrolled');
                 svgItem.forEach(function (element) {
                     element.setAttribute('stroke', 'white')
                 })
                 logo.setAttribute('src', '/img/GLOSYS.png')
             }
-        });
+            document.addEventListener('scroll', function () {
+
+                if (window.scrollY > 0) {
+                    box.classList.add('nav-scrolled');
+                    svgItem.forEach(function (element) {
+                        element.setAttribute('stroke', '#002E4C')
+                    })
+                    logo.setAttribute('src', '/img/GLOSYS-dark.png')
+                } else {
+                    box.classList.remove('nav-scrolled');
+                    svgItem.forEach(function (element) {
+                        element.setAttribute('stroke', 'white')
+                    })
+                    logo.setAttribute('src', '/img/GLOSYS.png')
+                }
+            });
+        }
     </script>
 }

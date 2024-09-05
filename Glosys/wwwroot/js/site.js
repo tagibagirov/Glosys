@@ -20,9 +20,15 @@ const url = window.location.href;
 const urlObject = new URL(url);
 const pathSegments = urlObject.pathname.split('/');
 const urlId = pathSegments[pathSegments.length - 1];
-$(".products .filter-item").each(function () {
+$(".filter .filter-item").each(function () {
     if (urlId == $(this).attr("catId")) {
-        $(".products .filter-item").removeClass("btn-gray-active")
+        $(".filter .filter-item").removeClass("btn-gray-active")
+        $(this).addClass("btn-gray-active")
+    }
+})
+$(".media-filter .filter-item").each(function () {
+    if (urlId == $(this).attr("catId")) {
+        $(".media-filter .filter-item").removeClass("btn-gray-active")
         $(this).addClass("btn-gray-active")
     }
 })
@@ -95,18 +101,19 @@ $(".btn-add-cat").click(function () {
             data: JSON.stringify(userData),
             contentType: 'application/json',
             success: function (res) {
-                $('.btn-add-cat').remove()
-                $('.filter').append(`
-                    <div class="btn-gray filter-item" catId="${res.categoryId}">
-                        <a href="/admin/adminproduct/${res.categoryId}">
-                            ${res.categoryName}
-                        </a>
-                        <i class="fa-solid fa-xmark js-dlt-cat"></i>
-                    </div>
-                    <button class="btn btn-gray btn-add-cat"><i class="fa-solid fa-plus-minus"></i>Add category</button>
-                `)
-                $("body").css("overflow", "unset");
-                $(".modal-fon").remove()
+                //$('.btn-add-cat').remove()
+                //$('.filter').append(`
+                //    <div class="btn-gray filter-item" catId="${res.categoryId}">
+                //        <a href="/admin/adminproduct/${res.categoryId}">
+                //            ${res.categoryName}
+                //        </a>
+                //        <i class="fa-solid fa-xmark js-dlt-cat"></i>
+                //    </div>
+                //    <button class="btn btn-gray btn-add-cat"><i class="fa-solid fa-plus-minus"></i>Add category</button>
+                //`)
+                //$("body").css("overflow", "unset");
+                //$(".modal-fon").remove()
+                location.reload()
             },
             error: function (xhr, status, error) {
                 console.error('Error:', error);
@@ -410,20 +417,54 @@ $("body").on("click", ".dlt-photo", function () {
     }
 })
 
-var swiper = new Swiper(".mySwiper", {
+$(".lock").click(function () {
+    if ($("#UserPassword").attr("type") == "password") {
+        $("#UserPassword").attr("type", "text")
+    } else {
+        $("#UserPassword").attr("type", "password")
+    }
+})
+
+var swiper = new Swiper(".home-products .mySwiper", {
+    slidesPerView: 5,
+    spaceBetween: 30,
+    loop: true,
+    navigation: {
+        nextEl: ".home-products .swiper-button-next",
+        prevEl: ".home-products .swiper-button-prev",
+    },
+});
+var swiper = new Swiper(".home-services .mySwiper", {
     slidesPerView: 4,
     spaceBetween: 60,
     navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
+        nextEl: ".home-services .swiper-button-next",
+        prevEl: ".home-services .swiper-button-prev",
     },
 });
+var slidesToShow = $(window).width() <= 768 ? 2 : 6;
 var swiper = new Swiper(".home-partners .mySwiper", {
-    // centeredSlides: true,
-    slidesPerView: 6,
+    slidesPerView: slidesToShow,
     loop: true,
     autoplay: {
         delay: 2500,
         disableOnInteraction: false,
+    },
+});
+var swiper = new Swiper("header .mySwiper", {
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+    },
+    loop: true,
+    autoplay: {
+        delay: 2000,
+        disableOnInteraction: false,
+    },
+    on: {
+        slideChangeTransitionEnd: function () {
+            var slideId = parseInt($(".swiper-slide-active").attr("data-swiper-slide-index")) + 1;
+            $('.slide-index').html(`0${slideId}`);
+        },
     },
 });

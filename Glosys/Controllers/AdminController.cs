@@ -150,6 +150,8 @@ namespace Glosys.Controllers
         public IActionResult DeleteProduct(int id)
         {
             Product product = _sql.Products.SingleOrDefault(x => x.ProductId == id);
+            var photoList = _sql.ProductPhotos.Where(x=> x.PhotoProductId == id).ToList();
+            _sql.ProductPhotos.RemoveRange(photoList);
             _sql.Products.Remove(product);
             _sql.SaveChanges();
             return Ok();
@@ -181,6 +183,14 @@ namespace Glosys.Controllers
         public IActionResult DeleteCategory(int id)
         {
             var category = _sql.Categories.SingleOrDefault(x => x.CategoryId == id);
+            var productList = _sql.Products.Where(x=> x.ProductCategoryId == id).ToList();
+            foreach (Product product in productList)
+            {
+                var productPhotos = _sql.ProductPhotos.Where(x=> x.PhotoProductId== product.ProductId).ToList();
+                _sql.ProductPhotos.RemoveRange(productPhotos);
+                _sql.SaveChanges();
+            }
+            _sql.Products.RemoveRange(productList);
             _sql.Categories.Remove(category);
             _sql.SaveChanges();
             return Ok();

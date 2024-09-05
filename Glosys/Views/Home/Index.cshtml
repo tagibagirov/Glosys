@@ -1,5 +1,36 @@
 ﻿<header>
-    <div class="container">
+    <div class="header-box">
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    1
+                    @* <img src="~/img/GLOSYS.png" alt="Alternate Text" /> *@
+                </div>
+                <div class="swiper-slide">
+                    2
+                    @* <img src="~/img/partners-logo/Cisco_logo_blue_2016 2.png" alt="Alternate Text" /> *@
+                </div>
+                <div class="swiper-slide">
+                    3
+                    @* <img src="~/img/partners-logo/Trend_Micro_Logo_2023 2.png" alt="Alternate Text" /> *@
+                </div>
+                <div class="swiper-slide">
+                    4
+                    @* <img src="~/img/partners-logo/HP-Logo-2012 2.png" alt="Alternate Text" /> *@
+                </div>
+                <div class="swiper-slide">
+                    5
+                    @* <img src="~/img/partners-logo/csm_GFI_Software_Logo_07f69ac3c1 2.png" alt="Alternate Text" /> *@
+                </div>
+            </div>
+            <div class="navigation">
+                <div class="swiper-button-prev"></div>
+                <span class="slide-index">01</span>
+                <div class="navigation-item"></div>
+                <span>05</span>
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
     </div>
 </header>
 <section class="about">
@@ -46,12 +77,31 @@
                     }
                 </div>
             </div>
-            <div class="swiper-button-next"><i class="fa-solid fa-caret-right"></i></div>
             <div class="swiper-button-prev"><i class="fa-solid fa-caret-left"></i></div>
+            <div class="swiper-button-next"><i class="fa-solid fa-caret-right"></i></div>
+        </div>
+        <div class="bottom-media">
+            @foreach (Product item in ViewBag.Products)
+            {
+                <div class="swiper-slide">
+                    <div class="product-card" productId="@item.ProductId">
+                        <div class="card-image">
+                            <img src="/img/productsPhoto/@item.ProductPhotos.FirstOrDefault().PhotoName" alt="Product Image">
+                        </div>
+                        <div class="card-text">
+                            <h3>@item.ProductName</h3>
+                            <p>@item.ProductInfo</p>
+                        </div>
+                        <div class="card-btn">
+                            <a class="btn btn-medium btn-blue" href="/home/productInfo/@item.ProductId">Learn more</a>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </section>
-<section class="home-services sliders">
+@* <section class="home-services sliders">
     <div class="container">
         <div class="title">
             <h2>SERVICES</h2>
@@ -112,11 +162,11 @@
 
                 </div>
             </div>
-            <div class="swiper-button-next"><i class="fa-solid fa-caret-right"></i></div>
             <div class="swiper-button-prev"><i class="fa-solid fa-caret-left"></i></div>
+            <div class="swiper-button-next"><i class="fa-solid fa-caret-right"></i></div>
         </div>
     </div>
-</section>
+</section> *@
 <section class="home-partners sliders">
     <div class="container">
         <div class="title">
@@ -126,103 +176,118 @@
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
-                        <img src="/img/partners-logo/Cisco_logo_blue_2016.svg 1.png" alt="">
+                        <img src="/img/partners-logo/Cisco_logo_blue_2016 1.png" alt="">
+                        <img src="/img/partners-logo/Cisco_logo_blue_2016 2.png" alt="">
                     </div>
                     <div class="swiper-slide">
                         <img src="/img/partners-logo/csm_GFI_Software_Logo_07f69ac3c1 1.png" alt="">
+                        <img src="/img/partners-logo/csm_GFI_Software_Logo_07f69ac3c1 2.png" alt="">
                     </div>
                     <div class="swiper-slide">
-                        <img src="/img/partners-logo/Dell_Logo.svg 1.png" alt="">
+                        <img src="/img/partners-logo/Dell_Logo 1.png" alt="">
+                        <img src="/img/partners-logo/Dell_Logo 2.png" alt="">
                     </div>
                     <div class="swiper-slide">
                         <img src="/img/partners-logo/HP-Logo-2012 1.png" alt="">
+                        <img src="/img/partners-logo/HP-Logo-2012 2.png" alt="">
                     </div>
                     <div class="swiper-slide">
                         <img src="/img/partners-logo/IBM-Logo-Design-1972-present 1.png" alt="">
+                        <img src="/img/partners-logo/IBM-Logo-Design-1972-present 2.png" alt="">
                     </div>
                     <div class="swiper-slide">
                         <img src="/img/partners-logo/Lenovo-Logo-1 1.png" alt="">
+                        <img src="/img/partners-logo/Lenovo-Logo-1 2.png" alt="">
                     </div>
                     <div class="swiper-slide">
                         <img src="/img/partners-logo/NetApp-Logo 1.png" alt="">
+                        <img src="/img/partners-logo/NetApp-Logo 2.png" alt="">
                     </div>
                     <div class="swiper-slide">
                         <img src="/img/partners-logo/Teltonika-logo 1.png" alt="">
+                        <img src="/img/partners-logo/Teltonika-logo 2.png" alt="">
                     </div>
                     <div class="swiper-slide">
                         <img src="/img/partners-logo/Trend_Micro_Logo_2023 1.png" alt="">
+                        <img src="/img/partners-logo/Trend_Micro_Logo_2023 2.png" alt="">
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<section class="home-contacts sliders">
-    <div class="container">
-        <div class="title">
-            <h2>CONTACT US</h2>
+<section class="home-contacts">
+    <div class="home-contacts-box">
+        <div class="container">
+            <div class="title">
+                <h2>CONTACT US</h2>
+            </div>
+            <div class="bottom">
+                <div class="item">
+                    <img src="/img/location.svg" alt="">
+                    <h3>Address</h3>
+                    <p>
+                        AZ1010, Baku, Azerbaijan
+                        Ahmad Rajabli, Chinar Park, 1/69
+                    </p>
+                </div>
+                <div class="item">
+                    <img src="/img/Phone.svg" alt="">
+                    <h3>Phone</h3>
+                    <p>
+                        +994125001280 <br>
+                        +994552101280
+                    </p>
+                </div>
+                <div class="item">
+                    <img src="/img/email.svg" alt="">
+                    <h3>Email</h3>
+                    <p>info@glosys.az</p>
+                </div>
+                <div class="item">
+                    <img src="/img/website.svg" alt="">
+                    <h3>Website</h3>
+                    <p><a href="">www.glosys.az</a></p>
+                </div>
+            </div>
         </div>
-        <div class="bottom">
-            <div class="item">
-                <img src="/img/location.svg" alt="">
-                <h3>Address</h3>
-                <p>
-                    AZ1010, Baku, Azerbaijan
-                    Ahmad Rajabli, Chinar Park, 1/69
-                </p>
-            </div>
-            <div class="item">
-                <img src="/img/Phone.svg" alt="">
-                <h3>Phone</h3>
-                <p>
-                    +994125001280 <br>
-                    +994552101280
-                </p>
-            </div>
-            <div class="item">
-                <img src="/img/email.svg" alt="">
-                <h3>Email</h3>
-                <p>info@glosys.az</p>
-            </div>
-            <div class="item">
-                <img src="/img/website.svg" alt="">
-                <h3>Website</h3>
-                <p><a href="">www.glosys.az</a></p>
-            </div>
-        </div>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.735688878333!2d49.85662227552761!3d40.41470575576331!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x403087fef0e167f9%3A0x2d47dbedc1eea9e7!2sChinar%20Park!5e0!3m2!1sru!2saz!4v1722613320213!5m2!1sru!2saz"
+                width="800" height="200" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.735688878333!2d49.85662227552761!3d40.41470575576331!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x403087fef0e167f9%3A0x2d47dbedc1eea9e7!2sChinar%20Park!5e0!3m2!1sru!2saz!4v1722613320213!5m2!1sru!2saz"
-            width="800" height="200" style="border:0;" allowfullscreen="" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"></iframe>
 </section>
 
 @section Scripts {
     <script>
-        const box = document.querySelector("nav");
-        const svgItem = document.querySelectorAll("nav svg path")
-        const logo = document.querySelector(".nav-left img")
-        if (window.scrollY == 0) {
-            box.classList.remove('nav-scrolled');
-            svgItem.forEach(function (element) {
-                element.setAttribute('stroke', 'white')
-            })
-            logo.setAttribute('src', '/img/GLOSYS.png')
-        }
-        document.addEventListener('scroll', function () {
+        if ($(window).width() >= 768) {
 
-            if (window.scrollY > 0) {
-                box.classList.add('nav-scrolled');
-                svgItem.forEach(function (element) {
-                    element.setAttribute('stroke', '#002E4C')
-                })
-                logo.setAttribute('src', '/img/GLOSYS-dark.png')
-            } else {
+            const box = document.querySelector("nav");
+            const svgItem = document.querySelectorAll("nav svg path")
+            const logo = document.querySelector(".nav-left img")
+            if (window.scrollY == 0) {
                 box.classList.remove('nav-scrolled');
                 svgItem.forEach(function (element) {
                     element.setAttribute('stroke', 'white')
                 })
                 logo.setAttribute('src', '/img/GLOSYS.png')
             }
-        });
+            document.addEventListener('scroll', function () {
+
+                if (window.scrollY > 0) {
+                    box.classList.add('nav-scrolled');
+                    svgItem.forEach(function (element) {
+                        element.setAttribute('stroke', '#002E4C')
+                    })
+                    logo.setAttribute('src', '/img/GLOSYS-dark.png')
+                } else {
+                    box.classList.remove('nav-scrolled');
+                    svgItem.forEach(function (element) {
+                        element.setAttribute('stroke', 'white')
+                    })
+                    logo.setAttribute('src', '/img/GLOSYS.png')
+                }
+            });
+        }
+
     </script>
 }
