@@ -69,9 +69,9 @@ $(".js-remove-product").click(function () {
 })
 //PRODUCT END
 
-//CATEGORY
+//PRODUCT CATEGORY
 //ADD
-$(".btn-add-cat").click(function () {
+$(".admin-products .btn-add-cat").click(function () {
     $("body").css("overflow", "hidden");
     $("body").append(`
     <div class="modal-fon">
@@ -87,16 +87,16 @@ $(".btn-add-cat").click(function () {
                 <input class="form-item" type="text" id="categoryName"/>
             </div>
             <div class="modal-btns">
-                <button class="btn btn-blue btn-big js-add-cat">Add<i class="fa-solid fa-plus-minus"></i></button>
+                <button class="btn btn-blue btn-big js-add-product-cat">Add<i class="fa-solid fa-plus-minus"></i></button>
             </div>
         </div>
     </div>`)
-    $('.js-add-cat').click(function () {
+    $('.js-add-product-cat').click(function () {
         let inputValue = $('#categoryName').val();
         console.log(inputValue)
         var userData = { CategoryName: inputValue }
         $.ajax({
-            url: '/admin/AddCategory/',
+            url: '/admin/AddProductCategory/',
             type: 'post',
             data: JSON.stringify(userData),
             contentType: 'application/json',
@@ -122,7 +122,7 @@ $(".btn-add-cat").click(function () {
     })
 })
 //REMOVE
-$('.js-dlt-cat').click(function () {
+$('.admin-products .js-dlt-cat').click(function () {
     let cat = $(this).closest(".filter-item")
     let catId = cat.attr("catId")
     $("body").css("overflow", "hidden");
@@ -134,18 +134,99 @@ $('.js-dlt-cat').click(function () {
             <p>You’re going to delete this category and all products with this category. Are you sure?</p>
             <div class="modal-btns">
                 <button class="btn btn-cancel btn-close-mdl">No</button>
-                <button class="btn btn-remove-md mdl-dlt-cat">Yes</button>
+                <button class="btn btn-remove-md mdl-dlt-product-cat">Yes</button>
             </div>
         </div>
     </div>`)
-    $(".mdl-dlt-cat").click(function () {
+    $(".mdl-dlt-product-cat").click(function () {
         $.ajax({
-            url: '/admin/deleteCategory/' + catId,
+            url: '/admin/DeleteProductCategory/' + catId,
             type: 'DELETE',
             success: function () {
-                cat.remove()
-                $("body").css("overflow", "unset");
-                $(".modal-fon").remove()
+                location.reload()
+            },
+            error: function (xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+    })
+})
+//PRODUCT CATEGORY END
+//GALLERU CATEGORY
+//ADD
+$(".admin-gallery .btn-add-cat").click(function () {
+    $("body").css("overflow", "hidden");
+    $("body").append(`
+    <div class="modal-fon">
+        <div class="modal">
+            <div class="modal-title">
+                <h3>New category</h3>
+                <button class="btn btn-close-mdl"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                  </svg></button>
+            </div>
+            <div class="input-form">
+                <label for="categoryName" class="placeholder">Category name</label>
+                <input class="form-item" type="text" id="categoryName"/>
+            </div>
+            <div class="modal-btns">
+                <button class="btn btn-blue btn-big js-add-gallery-cat">Add<i class="fa-solid fa-plus-minus"></i></button>
+            </div>
+        </div>
+    </div>`)
+    $('.js-add-gallery-cat').click(function () {
+        let inputValue = $('#categoryName').val();
+        console.log(inputValue)
+        var userData = { CategoryName: inputValue }
+        $.ajax({
+            url: '/admin/AddGalleryCategory/',
+            type: 'post',
+            data: JSON.stringify(userData),
+            contentType: 'application/json',
+            success: function (res) {
+                //$('.btn-add-cat').remove()
+                //$('.filter').append(`
+                //    <div class="btn-gray filter-item" catId="${res.categoryId}">
+                //        <a href="/admin/adminproduct/${res.categoryId}">
+                //            ${res.categoryName}
+                //        </a>
+                //        <i class="fa-solid fa-xmark js-dlt-cat"></i>
+                //    </div>
+                //    <button class="btn btn-gray btn-add-cat"><i class="fa-solid fa-plus-minus"></i>Add category</button>
+                //`)
+                //$("body").css("overflow", "unset");
+                //$(".modal-fon").remove()
+                location.reload()
+            },
+            error: function (xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+    })
+})
+//REMOVE
+$('.admin-gallery .js-dlt-cat').click(function () {
+    let cat = $(this).closest(".filter-item")
+    let catId = cat.attr("catId")
+    $("body").css("overflow", "hidden");
+    $("body").append(`
+    <div class="modal-fon dlt-modal">
+        <div class="modal">
+            <img src="/img/warning-svgrepo-com 1.png" alt="">
+            <h3>Delete Category</h3>
+            <p>You’re going to delete this category and all photo with this category. Are you sure?</p>
+            <div class="modal-btns">
+                <button class="btn btn-cancel btn-close-mdl">No</button>
+                <button class="btn btn-remove-md mdl-dlt-gallery-cat">Yes</button>
+            </div>
+        </div>
+    </div>`)
+    $(".mdl-dlt-gallery-cat").click(function () {
+        $.ajax({
+            url: '/admin/DeleteGalleryCategory/' + catId,
+            type: 'DELETE',
+            success: function () {
+                location.reload()
             },
             error: function (xhr, status, error) {
                 console.error('Error:', error);
@@ -395,9 +476,45 @@ $("#projectPhoto").change(function () {
         $(this).val(""); // Очищаем поле выбора файла после добавления изображения
     }
 });
+$("#galeryPhoto").change(function () {
+    $('.add-photo-list').empty()
+    if (this.files.length > 0) {
+        $('.add-photo-list').show();
+        // Получение первого файла из списка выбранных
+        const file = this.files[0];
+        const fileURL = URL.createObjectURL(file);
+
+        // Создание элементов
+        const addPhotoItem = document.createElement('div');
+        addPhotoItem.classList.add('add-photo-item');
+
+        const img = document.createElement('img');
+        img.src = fileURL;
+        img.alt = 'Photo';
+
+        const dltPhoto = document.createElement('div');
+        dltPhoto.classList.add('dlt-photo');
+
+        const i = document.createElement('i');
+        i.classList.add('fa-solid', 'fa-xmark');
+
+        // Построение структуры
+        dltPhoto.appendChild(i);
+        addPhotoItem.appendChild(img);
+        addPhotoItem.appendChild(dltPhoto);
+        //addPhotoItem.appendChild(this.cloneNode(true))
+
+        // Добавление элемента в список
+        document.querySelector('.add-photo-list').appendChild(addPhotoItem);
+
+        // Очистка выбранного файла
+        $(this).val(""); // Очищаем поле выбора файла после добавления изображения
+    }
+});
 $('.select-cat li').click(function () {
     let value = parseInt($(this).attr('catId'))
-    $("#ProductCategoryId").val(value)
+    //$("#ProductCategoryId").val(value)
+    $(this).closest("label").siblings().val(value)
     $(".select-cat span").html($(this).html());
 })
 $(".select-cat").click(function () {
@@ -425,6 +542,77 @@ $(".lock").click(function () {
     }
 })
 
+document.addEventListener("DOMContentLoaded", function () {
+    // Получаем все ссылки в меню
+    const menuLinks = document.querySelectorAll('.media-menu a');
+
+    // Получаем текущий URL страницы
+    const currentPath = window.location.pathname;
+
+    // Перебираем все ссылки
+    menuLinks.forEach(link => {
+        // Если href ссылки совпадает с текущим URL
+        if (link.getAttribute('href') === currentPath) {
+            // Добавляем класс активной ссылки
+            link.classList.add('media-menu-active');
+        } else if (currentPath === "/" && link.getAttribute('href') === "/home/index") {
+            link.classList.add('media-menu-active');
+        }
+    });
+});
+//SHOW GALLERY PHOTO
+var galleryId
+
+$(".gallery-item").click(function () {
+    $("body").css("overflow", "hidden")
+    $(".gallery-modal").css("display", "flex")
+    galleryId = $(this).attr("galleryId")
+    $.ajax({
+        url: '/home/getgalleryphoto/' + galleryId,
+        type: 'get',
+        success: function (res) {
+            $(".gallery-modal img").attr("src", `/img/galleryPhoto/${res.galeryPhotoName}`);
+            galleryId = res.galeryPhotoId;
+            console.log(res.galeryPhotoId)
+        },
+        error: function (xhr, status, error) {
+            console.error('Error:', error);
+        }
+    });
+})
+$(".close-modal").click(function () {
+    $("body").css("overflow", "unset")
+    $(".gallery-modal img").attr("src", "");
+    $(".gallery-modal").css("display", "none")
+})
+$(".modal-prev").click(function () {
+    $.ajax({
+        url: '/home/GetPrevPhoto/' + galleryId,
+        type: 'get',
+        success: function (res) {
+            $(".gallery-modal img").attr("src", `/img/galleryPhoto/${res.galeryPhotoName}`);
+            galleryId = res.galeryPhotoId
+            console.log(res.galeryPhotoId)
+        },
+        error: function (xhr, status, error) {
+            console.error('Error:', error);
+        }
+    });
+});
+$(".modal-next").click(function () {
+    $.ajax({
+        url: '/home/GetNextPhoto/' + galleryId,
+        type: 'get',
+        success: function (res) {
+            $(".gallery-modal img").attr("src", `/img/galleryPhoto/${res.galeryPhotoName}`);
+            galleryId = res.galeryPhotoId
+            console.log(res.galeryPhotoId)
+        },
+        error: function (xhr, status, error) {
+            console.error('Error:', error);
+        }
+    });
+});
 var swiper = new Swiper(".home-products .mySwiper", {
     slidesPerView: 5,
     spaceBetween: 30,

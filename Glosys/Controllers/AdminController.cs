@@ -108,10 +108,10 @@ namespace Glosys.Controllers
         {
             ViewBag.Categories = _sql.Categories.ToList();
             var existingProduct = _sql.Products.Include(x => x.ProductCategory).Include(x => x.ProductPhotos).SingleOrDefault(x => x.ProductId == id);
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(product);
-            //}
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             existingProduct.ProductName = product.ProductName;
             existingProduct.ProductInfo = product.ProductInfo;
             existingProduct.ProductCategoryId = product.ProductCategoryId;
@@ -150,14 +150,14 @@ namespace Glosys.Controllers
         public IActionResult DeleteProduct(int id)
         {
             Product product = _sql.Products.SingleOrDefault(x => x.ProductId == id);
-            var photoList = _sql.ProductPhotos.Where(x=> x.PhotoProductId == id).ToList();
+            var photoList = _sql.ProductPhotos.Where(x => x.PhotoProductId == id).ToList();
             _sql.ProductPhotos.RemoveRange(photoList);
             _sql.Products.Remove(product);
             _sql.SaveChanges();
             return Ok();
         }
         [HttpPost]
-        public IActionResult AddCategory([FromBody] Category category)
+        public IActionResult AddProductCategory([FromBody] Category category)
         {
             //if (!ModelState.IsValid)
             //{
@@ -167,26 +167,26 @@ namespace Glosys.Controllers
             _sql.SaveChanges();
             return Ok(category);
         }
-        [HttpPost]
-        public IActionResult EditCategory(int id, [FromBody] Category category)
-        {
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
-            var existingCategory = _sql.Categories.SingleOrDefault(x => x.CategoryId == id);
-            existingCategory.CategoryName = category.CategoryName;
-            _sql.SaveChanges();
-            return Ok();
-        }
+        //[HttpPost]
+        //public IActionResult EditCategory(int id, [FromBody] Category category)
+        //{
+        //    //if (!ModelState.IsValid)
+        //    //{
+        //    //    return BadRequest(ModelState);
+        //    //}
+        //    var existingCategory = _sql.Categories.SingleOrDefault(x => x.CategoryId == id);
+        //    existingCategory.CategoryName = category.CategoryName;
+        //    _sql.SaveChanges();
+        //    return Ok();
+        //}
         [HttpDelete]
-        public IActionResult DeleteCategory(int id)
+        public IActionResult DeleteProductCategory(int id)
         {
             var category = _sql.Categories.SingleOrDefault(x => x.CategoryId == id);
-            var productList = _sql.Products.Where(x=> x.ProductCategoryId == id).ToList();
+            var productList = _sql.Products.Where(x => x.ProductCategoryId == id).ToList();
             foreach (Product product in productList)
             {
-                var productPhotos = _sql.ProductPhotos.Where(x=> x.PhotoProductId== product.ProductId).ToList();
+                var productPhotos = _sql.ProductPhotos.Where(x => x.PhotoProductId == product.ProductId).ToList();
                 _sql.ProductPhotos.RemoveRange(productPhotos);
                 _sql.SaveChanges();
             }
@@ -195,6 +195,76 @@ namespace Glosys.Controllers
             _sql.SaveChanges();
             return Ok();
         }
+
+        public IActionResult AdminGallery(int id)
+        {
+            var galeryList = _sql.Galeries.AsQueryable();
+            if (id != 0)
+            {
+                galeryList = galeryList.Where(x => x.GaleryPhotoCategoryId == id);
+            }
+            ViewBag.GalleryCategory = _sql.GaleryCategories.ToList();
+            return View(galeryList.ToList());
+        }
+
+        public IActionResult AddGalleryPhoto()
+        {
+            ViewBag.Categories = _sql.GaleryCategories.ToList();
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddGalleryPhoto(Galery galery, IFormFile galeryPhoto)
+        {
+            ViewBag.Categories = _sql.GaleryCategories.ToList();
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            string filename = Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + Path.GetExtension(galeryPhoto.FileName);
+            using (Stream stream = new FileStream("wwwroot/img/galleryPhoto/" + filename, FileMode.Create))
+            {
+                galeryPhoto.CopyTo(stream);
+            }
+            galery.GaleryPhotoName = filename;
+            _sql.Galeries.Add(galery);
+            _sql.SaveChanges();
+            return RedirectToAction("admingallery", "admin");
+        }
+        public IActionResult AddGalleryCategory([FromBody] GaleryCategory galeryCategory)
+        {
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+            _sql.GaleryCategories.Add(galeryCategory);
+            _sql.SaveChanges();
+            return Ok(galeryCategory);
+        }
+        //[HttpPost]
+        //public IActionResult EditCategory(int id, [FromBody] Category category)
+        //{
+        //    //if (!ModelState.IsValid)
+        //    //{
+        //    //    return BadRequest(ModelState);
+        //    //}
+        //    var existingCategory = _sql.Categories.SingleOrDefault(x => x.CategoryId == id);
+        //    existingCategory.CategoryName = category.CategoryName;
+        //    _sql.SaveChanges();
+        //    return Ok();
+        //}
+        [HttpDelete]
+        public IActionResult DeleteGalleryCategory(int id)
+        {
+            var category = _sql.GaleryCategories.SingleOrDefault(x => x.CategoryId == id);
+            var photoList = _sql.Galeries.Where(x => x.GaleryPhotoCategoryId == id).ToList();
+            
+            _sql.Galeries.RemoveRange(photoList);
+            _sql.GaleryCategories.Remove(category);
+            _sql.SaveChanges();
+            return Ok();
+        }
+
+
         public IActionResult AdminService()
         {
             return View();

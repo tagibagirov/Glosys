@@ -28,6 +28,7 @@
                     <h3>Welcome back!</h3>
                     <p>Enter your email and password to access your account</p>
                     <form asp-controller="admin" asp-action="login" method="post" class="login-item">
+                        <span class="validation">@Html.ValidationMessage("error")</span>
                         <div class="input-form">
                             <label for="UserNickName" class="icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">

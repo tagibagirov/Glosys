@@ -1,0 +1,59 @@
+﻿@model List<Galery>
+
+
+<section class="gallery sliders">
+    <div class="container">
+        <div class="media-filter">
+            <a href="/home/gallery" catId="0" style="padding: 12px 25px" class="btn-gray btn-gray-active filter-item">
+                All
+            </a>
+            <div class="btn-gray filter-item" catId="">
+                <a href="">
+                    Category 1
+                </a>
+            </div>
+        </div>
+        <div class="title">
+            <h2>Gallery</h2>
+        </div>
+        <div class="filter">
+            <a href="/home/gallery" catId="0" style="padding: 12px 25px" class="btn-gray btn-gray-active filter-item">
+                All
+            </a>
+            @foreach (GaleryCategory cat in ViewBag.GalleryCategory)
+            {
+                <div class="btn-gray filter-item" catId="@cat.CategoryId">
+                    <a href="/home/gallery/@cat.CategoryId">
+                        @cat.CategoryName
+                    </a>
+                </div>
+            }
+        </div>
+        <div class="bottom gallery-lists">
+            @foreach (var item in Model)
+            {
+                <div class="gallery-item" galleryId="@item.GaleryPhotoId">
+                    <img src="/img/galleryPhoto/@item.GaleryPhotoName" alt="Alternate Text" />
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<div class="gallery-modal">
+    <img src="" alt="Alternate Text" />
+    <button class="close-modal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+        </svg>
+    </button>
+    <button class="modal-prev">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+        </svg>
+    </button>
+    <button class="modal-next">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
+        </svg>
+    </button>
+</div>

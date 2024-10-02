@@ -2,14 +2,17 @@
 <section class="add-product">
     <form asp-controller="admin" asp-action="addproduct" method="post" enctype="multipart/form-data" class="add-product-box">
         <h2>Add Project</h2>
+        <span class="validation" asp-validation-for="ProductName"></span>
         <div class="input-form">
             <label for="ProductName" class="placeholder">Project name</label>
             <input class="form-item" asp-for="ProductName" />
         </div>
+        <span asp-validation-for="ProductInfo" class="validation"></span>
         <div class="input-form">
             <label for="ProductInfo" class="placeholder">Description</label>
             <textarea class="form-item" rows="4" asp-for="ProductInfo"></textarea>
         </div>
+        <span asp-validation-for="ProductCategoryId" class="validation"></span>
         <div class="input-form">
             <label for="ProductCategoryId" class="select-cat">
                 <span>Select Category</span>

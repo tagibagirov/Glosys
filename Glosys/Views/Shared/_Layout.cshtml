@@ -23,6 +23,10 @@
                 <a href="/home/index"><img src="/img/GLOSYS-dark.png" alt="GLOSYS LOGO"></a>
                 <ul class="nav-menu">
                     <li class="nav-item"><a class="nav-link" href="/home/index">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="@(User.Identity.IsAuthenticated ? "/admin/adminproduct" :"/home/products")">Projects</a></li>
+                    @* <li class="nav-item"><a class="nav-link" href="@(User.Identity.IsAuthenticated ? "/admin/adminservice" :"/home/services")">Services</a></li> *@
+                    <li class="nav-item"><a class="nav-link" href="@(User.Identity.IsAuthenticated ? "/admin/adminGallery" :"/home/Gallery")">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/home/contacts">Contacts</a></li>
                     <li class="nav-item solutions">
                         IT Solutions
                         <i class="fa-solid fa-angle-down"></i>
@@ -36,9 +40,6 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="@(User.Identity.IsAuthenticated ? "/admin/adminproduct" :"/home/products")">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link" href="@(User.Identity.IsAuthenticated ? "/admin/adminservice" :"/home/services")">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/home/contacts">Contacts</a></li>
                 </ul>
             </div>
             <div class="nav-right">
@@ -204,7 +205,7 @@
         </div>
     </footer>
     <div class="media-menu">
-        <a class="media-menu-active" href="#">
+        <a href="/home/index">
             <svg xmlns="http://www.w3.org/2000/svg" width="27" height="26" viewBox="0 0 27 26" fill="none">
                 <path d="M10.25 17.3333C11.1712 18.0162 12.2917 18.4167 13.5 18.4167C14.7084 18.4167 15.8287 18.0162 16.75 17.3333" stroke="#C2CACF" stroke-width="2" stroke-linecap="round" />
                 <path d="M24.3333 13.2209V14.8687C24.3333 19.0946 24.3333 21.2076 23.0641 22.5204C21.795 23.8333 19.7521 23.8333 15.6667 23.8333H11.3333C7.24781 23.8333 5.20507 23.8333 3.93586 22.5204C2.66666 21.2076 2.66666 19.0946 2.66666 14.8687V13.2209C2.66666 10.7418 2.66666 9.50221 3.22912 8.47462C3.79159 7.44705 4.81919 6.80929 6.87436 5.5338L9.04102 4.1891C11.2135 2.8408 12.2998 2.16666 13.5 2.16666C14.7002 2.16666 15.7865 2.8408 17.959 4.1891L20.1257 5.53379C22.1808 6.80929 23.2084 7.44705 23.7709 8.47462" stroke="#C2CACF" stroke-width="2" stroke-linecap="round" />
@@ -214,7 +215,7 @@
                 <path d="M24.3333 13.2209V14.8687C24.3333 19.0946 24.3333 21.2076 23.0641 22.5204C21.795 23.8333 19.7521 23.8333 15.6667 23.8333H11.3333C7.24783 23.8333 5.20508 23.8333 3.93587 22.5204C2.66667 21.2076 2.66667 19.0946 2.66667 14.8687V13.2209C2.66667 10.7418 2.66667 9.50221 3.22914 8.47462C3.79161 7.44705 4.8192 6.80929 6.87437 5.5338L9.04104 4.1891C11.2135 2.8408 12.2998 2.16666 13.5 2.16666C14.7002 2.16666 15.7865 2.8408 17.959 4.1891L20.1257 5.53379C22.1809 6.80929 23.2084 7.44705 23.7709 8.47462" stroke="#22C3F3" stroke-width="2" stroke-linecap="round" />
             </svg>
         </a>
-        <a href="#">
+        <a href="@(User.Identity.IsAuthenticated ? "/admin/adminproduct" :"/home/products")">
             <svg xmlns="http://www.w3.org/2000/svg" width="27" height="26" viewBox="0 0 27 26" fill="none">
                 <path d="M13.1672 13C15.1497 13 16.6122 11.3858 16.4172 9.40332L15.7022 2.16666H10.643L9.91719 9.40332C9.72219 11.3858 11.1847 13 13.1672 13Z" stroke="#C2CACF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 <path d="M20.0034 13C22.1917 13 23.795 11.2233 23.5784 9.04582L23.275 6.06666C22.885 3.24999 21.8017 2.16666 18.9634 2.16666H15.6592L16.4175 9.76082C16.6017 11.5483 18.2159 13 20.0034 13Z" stroke="#C2CACF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -230,7 +231,7 @@
                 <path d="M13.1667 18.4167C11.3575 18.4167 10.4583 19.3158 10.4583 21.125V23.8333H15.875V21.125C15.875 19.3158 14.9758 18.4167 13.1667 18.4167Z" stroke="#22C3F3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
         </a>
-        <a href="#">
+        <a href="/home/contacts">
             <svg xmlns="http://www.w3.org/2000/svg" width="27" height="26" viewBox="0 0 27 26" fill="none">
                 <path d="M15.4584 2.16666C15.4584 2.16666 17.9863 2.39646 21.2036 5.6138C24.4209 8.83114 24.6508 11.3591 24.6508 11.3591" stroke="#C2CACF" stroke-width="2" stroke-linecap="round" />
                 <path d="M16.2243 5.99695C16.2243 5.99695 17.2968 6.30337 18.9054 7.91203C20.5141 9.52071 20.8206 10.5932 20.8206 10.5932" stroke="#C2CACF" stroke-width="2" stroke-linecap="round" />

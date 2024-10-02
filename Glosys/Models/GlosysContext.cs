@@ -17,6 +17,10 @@ public partial class GlosysContext : DbContext
 
     public virtual DbSet<Category> Categories { get; set; }
 
+    public virtual DbSet<Galery> Galeries { get; set; }
+
+    public virtual DbSet<GaleryCategory> GaleryCategories { get; set; }
+
     public virtual DbSet<Product> Products { get; set; }
 
     public virtual DbSet<ProductPhoto> ProductPhotos { get; set; }
@@ -34,6 +38,28 @@ public partial class GlosysContext : DbContext
             entity.HasKey(e => e.CategoryId).HasName("PK__Categori__19093A0B60A45165");
 
             entity.Property(e => e.CategoryName).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<Galery>(entity =>
+        {
+            entity.HasKey(e => e.GaleryPhotoId).HasName("PK__Galery__A11E18139E913998");
+
+            entity.ToTable("Galery");
+
+            entity.Property(e => e.GaleryPhotoName).HasMaxLength(50);
+
+            entity.HasOne(d => d.GaleryPhotoCategory).WithMany(p => p.Galeries)
+                .HasForeignKey(d => d.GaleryPhotoCategoryId)
+                .HasConstraintName("FK__Galery__GaleryPh__71D1E811");
+        });
+
+        modelBuilder.Entity<GaleryCategory>(entity =>
+        {
+            entity.HasKey(e => e.CategoryId).HasName("PK__GaleryCa__19093A0BE30D8194");
+
+            entity.ToTable("GaleryCategory");
+
+            entity.Property(e => e.CategoryName).HasMaxLength(30);
         });
 
         modelBuilder.Entity<Product>(entity =>

@@ -19,7 +19,7 @@ namespace Glosys.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Products = _sql.Products.Include(x=>x.ProductPhotos).ToList();
+            ViewBag.Products = _sql.Products.Include(x => x.ProductPhotos).ToList();
             return View();
         }
 
@@ -36,7 +36,7 @@ namespace Glosys.Controllers
         public IActionResult ProductInfo(int id)
         {
 
-            Product product = _sql.Products.Include(x=>x.ProductPhotos).FirstOrDefault(x => x.ProductId == id);
+            Product product = _sql.Products.Include(x => x.ProductPhotos).FirstOrDefault(x => x.ProductId == id);
             return View(product);
         }
         public IActionResult Services()
@@ -47,7 +47,53 @@ namespace Glosys.Controllers
         {
             return View();
         }
-
+        public IActionResult Gallery(int id)
+        {
+            var galeryList = _sql.Galeries.AsQueryable();
+            if (id != 0)
+            {
+                galeryList = galeryList.Where(x => x.GaleryPhotoCategoryId == id);
+            }
+            ViewBag.GalleryCategory = _sql.GaleryCategories.ToList();
+            return View(galeryList.ToList());
+        }
+        public IActionResult GetGalleryPhoto(int id)
+        {
+            var galleryPhoto = _sql.Galeries.SingleOrDefault(x => x.GaleryPhotoId == id);
+            //if (galleryPhoto == null)
+            //{
+            //    return NotFound();
+            //}
+            return Ok(galleryPhoto);
+        }
+        public IActionResult GetNextPhoto(int id)
+        {
+            var lastPhoto = _sql.Galeries.LastOrDefault();
+            var nextPhoto = _sql.Galeries
+                .Where(p => p.GaleryPhotoId > id)
+                .OrderBy(p => p.GaleryPhotoId)
+                .FirstOrDefault();
+            if (nextPhoto == null)
+            {
+                return Ok(lastPhoto);
+            }
+            //nextPhoto == null ? NotFound() :
+            return Ok(nextPhoto);
+        }
+        public IActionResult GetPrevPhoto(int id)
+        {
+            var firstPhoto = _sql.Galeries.FirstOrDefault();
+            var prevPhoto = _sql.Galeries
+                .Where(p => p.GaleryPhotoId < id)
+                .OrderBy(p => p.GaleryPhotoId)
+                .LastOrDefault();
+            if (prevPhoto == null)
+            {
+                return Ok(firstPhoto);
+            }
+            //prevPhoto == null ? NotFound() :
+            return Ok(prevPhoto);
+        }
         public IActionResult Privacy()
         {
             return View();
