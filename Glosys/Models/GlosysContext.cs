@@ -25,6 +25,10 @@ public partial class GlosysContext : DbContext
 
     public virtual DbSet<ProductPhoto> ProductPhotos { get; set; }
 
+    public virtual DbSet<Project> Projects { get; set; }
+
+    public virtual DbSet<ProjectPhoto> ProjectPhotos { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -83,6 +87,25 @@ public partial class GlosysContext : DbContext
             entity.HasOne(d => d.PhotoProduct).WithMany(p => p.ProductPhotos)
                 .HasForeignKey(d => d.PhotoProductId)
                 .HasConstraintName("FK__ProductPh__Photo__619B8048");
+        });
+
+        modelBuilder.Entity<Project>(entity =>
+        {
+            entity.HasKey(e => e.ProjectId).HasName("PK__Projects__761ABEF0859748F4");
+
+            entity.Property(e => e.ProjectInfo).HasMaxLength(300);
+            entity.Property(e => e.ProjectName).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<ProjectPhoto>(entity =>
+        {
+            entity.HasKey(e => e.PhotoId).HasName("PK__ProjectP__99897D40FF117B02");
+
+            entity.Property(e => e.ProjectPhotoName).HasMaxLength(20);
+
+            entity.HasOne(d => d.PhotoProject).WithMany(p => p.ProjectPhotos)
+                .HasForeignKey(d => d.PhotoProjectId)
+                .HasConstraintName("FK__ProjectPh__Photo__04E4BC85");
         });
 
         modelBuilder.Entity<User>(entity =>

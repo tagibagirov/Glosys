@@ -1,49 +1,32 @@
-﻿@model Product
+﻿@model Project
 <section class="add-product">
-    <form asp-controller="admin" asp-action="editproduct" asp-route-id="@Model.ProductId" method="post" enctype="multipart/form-data" class="add-product-box">
-        <h2>Edit Product</h2>
-        <span asp-validation-for="ProductName" class="validation"></span>
+    <form asp-controller="admin" asp-action="editproject" asp-route-id="@Model.ProjectId" method="post" enctype="multipart/form-data" class="add-product-box">
+        <h2>Edit Project</h2>
+        <span asp-validation-for="ProjectName" class="validation"></span>
         <div class="input-form">
-            <label for="ProductName" class="placeholder">Product name</label>
-            <input class="form-item" asp-for="ProductName" />
+            <label for="ProjectName" class="placeholder">Project name</label>
+            <input class="form-item" asp-for="ProjectName" />
         </div>
-        <span asp-validation-for="ProductInfo" class="validation"></span>
+        <span asp-validation-for="ProjectInfo" class="validation"></span>
         <div class="input-form">
-            <label for="ProductInfo" class="placeholder">Description</label>
-            <textarea class="form-item" rows="4" asp-for="ProductInfo"></textarea>
-        </div>
-        <span asp-validation-for="ProductCategoryId" class="validation"></span>
-        <div class="input-form">
-            <label for="ProductCategoryId" class="select-cat">
-                <span>@Model.ProductCategory.CategoryName</span>
-                <i class="fa-solid fa-angle-down"></i>
-                <div class="dropdown">
-                    <ul>
-                        <li class="dropdown-item" catId="">Select Category</li>
-                        @foreach (Category category in ViewBag.Categories)
-                        {
-                            <li class="dropdown-item" catId="@category.CategoryId">@category.CategoryName</li>
-                        }
-                    </ul>
-                </div>
-            </label>
-            <input class="form-item" asp-for="ProductCategoryId" type="hidden" />
+            <label for="ProjectInfo" class="placeholder">Description</label>
+            <textarea class="form-item" rows="4" asp-for="ProjectInfo"></textarea>
         </div>
         <div class="input-form" style="margin-bottom:0;">
-            <label class="add-product-photo" for="productPhoto">
+            <label class="add-product-photo" for="projectPhoto">
                 Add Photo
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-camera-fill" viewBox="0 0 16 16">
                     <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
                     <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0" />
                 </svg>
             </label>
-            <input class="form-item" name="productPhotos" id="productPhoto" type="file" style="display: none;" />
+            <input class="form-item" name="projectPhotoList" id="projectPhoto" type="file" style="display: none;" />
         </div>
         <div class="add-photo-list" style="margin-top: 15px;">
-            @foreach (ProductPhoto photo in Model.ProductPhotos)
+            @foreach (ProjectPhoto photo in Model.ProjectPhotos)
             {
                 <div class="add-photo-item">
-                    <img src="/img/productsPhoto/@photo.PhotoName" alt="Photo" />
+                    <img src="/img/projectsPhoto/@photo.ProjectPhotoName" alt="Photo" />
                     <div class="dlt-photo old-photo" photoId="@photo.PhotoId"><i class="fa-solid fa-xmark"></i></div>
                 </div>
             }

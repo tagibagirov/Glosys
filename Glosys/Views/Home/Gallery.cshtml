@@ -37,6 +37,14 @@
                 </div>
             }
         </div>
+        <div class="bottom-media gallery-lists">
+            @foreach (var item in Model)
+            {
+                <div class="gallery-item" galleryId="@item.GaleryPhotoId">
+                    <img src="/img/galleryPhoto/@item.GaleryPhotoName" alt="Alternate Text" />
+                </div>
+            }
+        </div>
     </div>
 </section>
 <div class="gallery-modal">

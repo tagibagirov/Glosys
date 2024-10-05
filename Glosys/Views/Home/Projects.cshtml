@@ -1,0 +1,49 @@
+﻿@model List<Project>;
+
+
+<section class="projects sliders">
+    <div class="container">
+       
+        <div class="title">
+            <h2>PROJECTS</h2>
+        </div>
+        <div class="bottom product-lists">
+            @foreach (var item in Model)
+            {
+                <div class="box">
+                    <div class="product-card" projectId="@item.ProjectId">
+                        <div class="card-image">
+                            <img src="/img/projectsPhoto/@item.ProjectPhotos.FirstOrDefault().ProjectPhotoName" alt="Product Image">
+                        </div>
+                        <div class="card-text">
+                            <h3>@item.ProjectName</h3>
+                            <p>@item.ProjectInfo</p>
+                        </div>
+                        <div class="card-btn">
+                            <a class="btn btn-medium btn-blue" href="/home/projectInfo/@item.ProjectId">Learn more</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="bottom-media product-lists">
+            @foreach (var item in Model)
+            {
+                <div class="box">
+                    <div class="product-card" projectId="@item.ProjectId">
+                        <div class="card-image">
+                            <img src="/img/projectsPhoto/@item.ProjectPhotos.FirstOrDefault().ProjectPhotoName" alt="Product Image">
+                        </div>
+                        <div class="card-text">
+                            <h3>@item.ProjectName</h3>
+                            <p>@item.ProjectInfo</p>
+                        </div>
+                        <div class="card-btn">
+                            <a class="btn btn-medium btn-blue" href="/home/projectInfo/@item.ProjectId">Learn more</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

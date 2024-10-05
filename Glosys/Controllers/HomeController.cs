@@ -35,9 +35,18 @@ namespace Glosys.Controllers
         }
         public IActionResult ProductInfo(int id)
         {
-
             Product product = _sql.Products.Include(x => x.ProductPhotos).FirstOrDefault(x => x.ProductId == id);
             return View(product);
+        }
+        public IActionResult Projects()
+        {
+            var projectList = _sql.Projects.Include(x => x.ProjectPhotos).AsQueryable();
+            return View(projectList.ToList());
+        }
+        public IActionResult ProjectInfo(int id)
+        {
+            Project project = _sql.Projects.Include(x => x.ProjectPhotos).FirstOrDefault(x => x.ProjectId == id);
+            return View(project);
         }
         public IActionResult Services()
         {
@@ -57,18 +66,18 @@ namespace Glosys.Controllers
             ViewBag.GalleryCategory = _sql.GaleryCategories.ToList();
             return View(galeryList.ToList());
         }
+        public IActionResult About()
+        {
+            return View();
+        }
         public IActionResult GetGalleryPhoto(int id)
         {
             var galleryPhoto = _sql.Galeries.SingleOrDefault(x => x.GaleryPhotoId == id);
-            //if (galleryPhoto == null)
-            //{
-            //    return NotFound();
-            //}
             return Ok(galleryPhoto);
         }
         public IActionResult GetNextPhoto(int id)
         {
-            var lastPhoto = _sql.Galeries.LastOrDefault();
+            var lastPhoto = _sql.Galeries.OrderBy(p => p.GaleryPhotoId).FirstOrDefault();
             var nextPhoto = _sql.Galeries
                 .Where(p => p.GaleryPhotoId > id)
                 .OrderBy(p => p.GaleryPhotoId)
@@ -77,12 +86,11 @@ namespace Glosys.Controllers
             {
                 return Ok(lastPhoto);
             }
-            //nextPhoto == null ? NotFound() :
             return Ok(nextPhoto);
         }
         public IActionResult GetPrevPhoto(int id)
         {
-            var firstPhoto = _sql.Galeries.FirstOrDefault();
+            var firstPhoto = _sql.Galeries.OrderBy(p => p.GaleryPhotoId).LastOrDefault();
             var prevPhoto = _sql.Galeries
                 .Where(p => p.GaleryPhotoId < id)
                 .OrderBy(p => p.GaleryPhotoId)
@@ -91,7 +99,6 @@ namespace Glosys.Controllers
             {
                 return Ok(firstPhoto);
             }
-            //prevPhoto == null ? NotFound() :
             return Ok(prevPhoto);
         }
         public IActionResult Privacy()

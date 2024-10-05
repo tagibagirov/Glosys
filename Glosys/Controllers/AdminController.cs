@@ -74,10 +74,6 @@ namespace Glosys.Controllers
         public IActionResult AddProduct(Product product, IFormFile[] productPhotos)
         {
             ViewBag.Categories = _sql.Categories.ToList();
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
             _sql.Products.Add(product);
             _sql.SaveChanges();
             foreach (var item in productPhotos)
@@ -106,12 +102,7 @@ namespace Glosys.Controllers
         [HttpPost]
         public IActionResult EditProduct(int id, Product product, IFormFile[] productPhotos, string DeletedPhoto)
         {
-            ViewBag.Categories = _sql.Categories.ToList();
             var existingProduct = _sql.Products.Include(x => x.ProductCategory).Include(x => x.ProductPhotos).SingleOrDefault(x => x.ProductId == id);
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
             existingProduct.ProductName = product.ProductName;
             existingProduct.ProductInfo = product.ProductInfo;
             existingProduct.ProductCategoryId = product.ProductCategoryId;
@@ -156,13 +147,94 @@ namespace Glosys.Controllers
             _sql.SaveChanges();
             return Ok();
         }
+        public IActionResult AdminProject()
+        {
+            var projectList = _sql.Projects.Include(x => x.ProjectPhotos).AsQueryable();
+            return View(projectList.ToList());
+        }
+        public IActionResult AddProject()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddProject(Project project, IFormFile[] projectPhotoList)
+        {
+            _sql.Projects.Add(project);
+            _sql.SaveChanges();
+            foreach (var item in projectPhotoList)
+            {
+                string filename = Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + Path.GetExtension(item.FileName);
+                using (Stream stream = new FileStream("wwwroot/img/projectsPhoto/" + filename, FileMode.Create))
+                {
+                    item.CopyTo(stream);
+                }
+                var projectPhoto = new ProjectPhoto
+                {
+                    ProjectPhotoName = filename,
+                    PhotoProjectId = project.ProjectId
+                };
+                _sql.ProjectPhotos.Add(projectPhoto);
+                _sql.SaveChanges();
+            }
+            return RedirectToAction("adminproject", "admin");
+        }
+
+
+        public IActionResult EditProject(int id)
+        {
+            var project = _sql.Projects.Include(x => x.ProjectPhotos).SingleOrDefault(x => x.ProjectId == id);
+            return View(project);
+        }
+        [HttpPost]
+        public IActionResult EditProject(int id, Project project, IFormFile[] projectPhotoList, string DeletedPhoto)
+        {
+            var existingProject = _sql.Projects.Include(x => x.ProjectPhotos).SingleOrDefault(x => x.ProjectId == id);
+            existingProject.ProjectName = project.ProjectName;
+            existingProject.ProjectInfo = project.ProjectInfo;
+            if (!string.IsNullOrEmpty(DeletedPhoto))
+            {
+                List<int> existingPhotoIdList = JsonSerializer.Deserialize<List<int>>(json: DeletedPhoto);
+                if (existingPhotoIdList != null && existingPhotoIdList.Count > 0)
+                {
+                    var existingPhotoList = _sql.ProjectPhotos.Where(x => existingPhotoIdList.Contains((int)x.PhotoId));
+                    _sql.ProjectPhotos.RemoveRange(existingPhotoList);
+                    _sql.SaveChanges();
+                }
+            }
+            if (projectPhotoList != null && projectPhotoList.Length > 0)
+            {
+                foreach (var item in projectPhotoList)
+                {
+                    string filename = Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + Path.GetExtension(item.FileName);
+                    using (Stream stream = new FileStream("wwwroot/img/projectsPhoto/" + filename, FileMode.Create))
+                    {
+                        item.CopyTo(stream);
+                    }
+                    var projectPhoto = new ProjectPhoto
+                    {
+                        ProjectPhotoName = filename,
+                        PhotoProjectId = id
+                    };
+                    _sql.ProjectPhotos.Add(projectPhoto);
+                    _sql.SaveChanges();
+                }
+            }
+            _sql.SaveChanges();
+            return RedirectToAction("adminproject", "admin");
+        }
+        [HttpDelete]
+        public IActionResult DeleteProject(int id)
+        {
+            Project project = _sql.Projects.SingleOrDefault(x => x.ProjectId == id);
+            var photoList = _sql.ProjectPhotos.Where(x => x.PhotoProjectId == id).ToList();
+            _sql.ProjectPhotos.RemoveRange(photoList);
+            _sql.Projects.Remove(project);
+            _sql.SaveChanges();
+            return Ok();
+        }
         [HttpPost]
         public IActionResult AddProductCategory([FromBody] Category category)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
             _sql.Categories.Add(category);
             _sql.SaveChanges();
             return Ok(category);
@@ -170,10 +242,6 @@ namespace Glosys.Controllers
         //[HttpPost]
         //public IActionResult EditCategory(int id, [FromBody] Category category)
         //{
-        //    //if (!ModelState.IsValid)
-        //    //{
-        //    //    return BadRequest(ModelState);
-        //    //}
         //    var existingCategory = _sql.Categories.SingleOrDefault(x => x.CategoryId == id);
         //    existingCategory.CategoryName = category.CategoryName;
         //    _sql.SaveChanges();
@@ -216,10 +284,6 @@ namespace Glosys.Controllers
         public IActionResult AddGalleryPhoto(Galery galery, IFormFile galeryPhoto)
         {
             ViewBag.Categories = _sql.GaleryCategories.ToList();
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
             string filename = Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + Path.GetExtension(galeryPhoto.FileName);
             using (Stream stream = new FileStream("wwwroot/img/galleryPhoto/" + filename, FileMode.Create))
             {
@@ -232,32 +296,16 @@ namespace Glosys.Controllers
         }
         public IActionResult AddGalleryCategory([FromBody] GaleryCategory galeryCategory)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
             _sql.GaleryCategories.Add(galeryCategory);
             _sql.SaveChanges();
             return Ok(galeryCategory);
         }
-        //[HttpPost]
-        //public IActionResult EditCategory(int id, [FromBody] Category category)
-        //{
-        //    //if (!ModelState.IsValid)
-        //    //{
-        //    //    return BadRequest(ModelState);
-        //    //}
-        //    var existingCategory = _sql.Categories.SingleOrDefault(x => x.CategoryId == id);
-        //    existingCategory.CategoryName = category.CategoryName;
-        //    _sql.SaveChanges();
-        //    return Ok();
-        //}
         [HttpDelete]
         public IActionResult DeleteGalleryCategory(int id)
         {
             var category = _sql.GaleryCategories.SingleOrDefault(x => x.CategoryId == id);
             var photoList = _sql.Galeries.Where(x => x.GaleryPhotoCategoryId == id).ToList();
-            
+
             _sql.Galeries.RemoveRange(photoList);
             _sql.GaleryCategories.Remove(category);
             _sql.SaveChanges();
