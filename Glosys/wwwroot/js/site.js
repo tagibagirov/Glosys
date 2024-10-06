@@ -683,7 +683,7 @@ var swiper = new Swiper(".home-services .mySwiper", {
     },
 });
 var slidesToShow = $(window).width() <= 768 ? 2 : 6;
-var swiperHome = new Swiper(".mySwiperHome", {
+var swiperHome = new Swiper(".home-partners .mySwiper", {
     slidesPerView: slidesToShow,
     loop: true,
     autoplay: {
@@ -692,16 +692,15 @@ var swiperHome = new Swiper(".mySwiperHome", {
     },
 });
 
-var swiperBank = new Swiper(".mySwiperBank", {
-    slidesPerView: slidesToShow,
-    loop: true,
-    autoplay: {
-        delay: 2500,
-        disableOnInteraction: false,
-    },
-    direction: 'horizontal',
-    rtl: true,
-});
+//var swiperBank = new Swiper(".mySwiperBank", {
+//    slidesPerView: slidesToShow,
+//    loop: true,
+//    autoplay: {
+//        delay: 2500,
+//        disableOnInteraction: false,
+//    },
+//    direction: 'horizontal',
+//});
 var swiper = new Swiper("header .mySwiper", {
     navigation: {
         nextEl: ".swiper-button-next",
