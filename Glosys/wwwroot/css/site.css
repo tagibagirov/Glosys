@@ -352,6 +352,7 @@ header .swiper-slide {
 header .swiper img {
     min-width: 100%;
     min-height: 100%;
+    object-fit: cover;
 }
 
 header .navigation {
@@ -610,14 +611,23 @@ section, footer {
 /* PARTNERS */
 
 .home-partners .swiper-wrapper {
-    padding: 30px 0 50px;
+    padding: 30px 0 0;
     align-items: center;
 }
 
+.bank-partners .swiper-wrapper {
+    padding: 0 0 50px;
+}
+
 .home-partners .swiper-slide {
-    padding: 40px 50px;
+    padding: 20px 50px;
     position: relative;
 }
+
+.bank-partners .swiper-slide {
+    padding: 0 50px 20px;
+}
+
 .home-partners img {
     width: 100%;
 }
@@ -1502,6 +1512,10 @@ footer .bottom {
     white-space: nowrap; /* Запретить перенос строк */
 }
 
+.filter-item {
+    cursor: pointer;
+}
+
 @media (max-width: 768px) {
     .container {
         padding: 0 16px;
@@ -1540,6 +1554,7 @@ footer .bottom {
     .header-box {
         box-shadow: 0px 18px 34px 0px rgba(0, 89, 148, 0.20);
         border-radius: 16px;
+        overflow: hidden;
         aspect-ratio: 2/1 !important;
     }
 
@@ -1651,21 +1666,25 @@ footer .bottom {
 
     /* PARTNERS */
     .home-partners {
-        margin: 48px 0 36px;
+        margin: 48px 0 0;
     }
 
-        .home-partners .swiper-wrapper {
-            padding: 0;
-        }
+    .bank-partners {
+        margin: 0 0 36px;
+    }
 
-        .home-partners .swiper-slide {
-            padding: 20px 35px;
-        }
+    .home-partners .swiper-wrapper {
+        padding: 0;
+    }
 
-            .home-partners .swiper-slide img:last-of-type {
-                top: 20px;
-                left: 35px;
-            }
+    .home-partners .swiper-slide {
+        padding: 20px 35px;
+    }
+
+        .home-partners .swiper-slide img:last-of-type {
+            top: 20px;
+            left: 35px;
+        }
     /* PARTNERS END */
     /* home-contacts */
 
@@ -1766,18 +1785,28 @@ footer .bottom {
             display: block;
             padding: 16px 4px;
             overflow: hidden;
-            position: relative
+            position: relative;
+            color: #C2CACF;
+            
         }
+            .media-menu a svg{
+                width: 27px;
+                height: 26px;
+            }
 
-            .media-menu a:not(:last-of-type) svg:last-of-type {
+            .media-menu a .second-svg {
                 display: none;
             }
 
-    .media-menu-active svg:last-of-type {
+    .media-menu-active svg {
+        color: #22C3F3 !important;
+    }
+
+    .media-menu-active .second-svg {
         display: inline-block !important;
     }
 
-    .media-menu-active svg:first-of-type {
+    .media-menu-active .first-svg {
         display: none !important;
     }
 
