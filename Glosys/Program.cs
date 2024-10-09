@@ -11,7 +11,7 @@ builder.Services.AddFluentValidationAutoValidation().AddValidatorsFromAssemblyCo
 builder.Services.AddScoped<GlosysContext>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option =>
 {
-    option.LoginPath = "/user/login";
+    option.LoginPath = "/admin/login";
     option.Cookie.Name = "User";
 });
 builder.Services.AddSession(options =>

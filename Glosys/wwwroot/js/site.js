@@ -44,7 +44,7 @@ $(".js-remove-product").click(function () {
     <div class="modal-fon dlt-modal">
         <div class="modal">
             <img src="/img/warning-svgrepo-com 1.png" alt="">
-            <h3>Delete Project</h3>
+            <h3>Delete Product</h3>
             <p>You’re going to delete this product. Are you sure?</p>
             <div class="modal-btns">
                 <button class="btn btn-cancel btn-close-mdl">No</button>
