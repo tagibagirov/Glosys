@@ -197,12 +197,15 @@ nav .container {
     width: 60%;
     margin-right: auto;
 }
+    .nav-left .logo{
+        width: 100px;
+    }
 
-.nav-menu {
-    display: flex;
-    gap: 10px;
-    list-style: none;
-}
+    .nav-menu {
+        display: flex;
+        gap: 10px;
+        list-style: none;
+    }
 
 .nav-item {
     padding: 10px 20px;
@@ -392,6 +395,9 @@ header .navigation-item {
 /* HEADER END */
 section, footer {
     color: #002E4C !important;
+}
+footer .logo{
+    width: 250px
 }
 
 /* ABOUT */
