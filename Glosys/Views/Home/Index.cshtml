@@ -61,20 +61,37 @@
                 <div class="swiper-wrapper">
                     @foreach (Product item in ViewBag.Products)
                     {
-                        <div class="swiper-slide">
-                            <div class="product-card" productId="@item.ProductId">
-                                <div class="card-image">
-                                    <img src="/img/productsPhoto/@item.ProductPhotos.FirstOrDefault().PhotoName" alt="Product Image">
-                                </div>
-                                <div class="card-text">
-                                    <h3>@item.ProductName</h3>
-                                    <p>@item.ProductInfo</p>
-                                </div>
-                                <div class="card-btn">
-                                    <a class="btn btn-medium btn-blue" href="/home/productInfo/@item.ProductId">Learn more</a>
+                            <div class="swiper-slide">
+                                <div class="product-card" productId="@item.ProductId">
+                                    <div class="card-image">
+                                        <img src="/img/productsPhoto/@item.ProductPhotos.FirstOrDefault()?.PhotoName" alt="Product Image">
+                                    </div>
+                                    <div class="card-text">
+                                        <h3>@item.ProductName</h3>
+                                        <p>@item.ProductInfo</p>
+                                    </div>
+                                    <div class="card-btn">
+                                        <a class="btn btn-medium btn-blue" href="/home/productInfo/@item.ProductId">Learn more</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                    }
+                    @foreach (Product item in ViewBag.Products)
+                    {
+                                <div class="swiper-slide">
+                                    <div class="product-card" productId="@item.ProductId">
+                                        <div class="card-image">
+                                            <img src="/img/productsPhoto/@item.ProductPhotos.FirstOrDefault()?.PhotoName" alt="Product Image">
+                                        </div>
+                                        <div class="card-text">
+                                            <h3>@item.ProductName</h3>
+                                            <p>@item.ProductInfo</p>
+                                        </div>
+                                        <div class="card-btn">
+                                            <a class="btn btn-medium btn-blue" href="/home/productInfo/@item.ProductId">Learn more</a>
+                                        </div>
+                                    </div>
+                                </div>
                     }
                 </div>
             </div>
@@ -84,20 +101,20 @@
         <div class="bottom-media">
             @foreach (Product item in ViewBag.Products)
             {
-                <div class="swiper-slide">
-                    <div class="product-card" productId="@item.ProductId">
-                        <div class="card-image">
-                            <img src="/img/productsPhoto/@item.ProductPhotos.FirstOrDefault().PhotoName" alt="Product Image">
-                        </div>
-                        <div class="card-text">
-                            <h3>@item.ProductName</h3>
-                            <p>@item.ProductInfo</p>
-                        </div>
-                        <div class="card-btn">
-                            <a class="btn btn-medium btn-blue" href="/home/productInfo/@item.ProductId">Learn more</a>
+                    <div class="swiper-slide">
+                        <div class="product-card" productId="@item.ProductId">
+                            <div class="card-image">
+                                <img src="/img/productsPhoto/@item.ProductPhotos.FirstOrDefault()?.PhotoName" alt="Product Image">
+                            </div>
+                            <div class="card-text">
+                                <h3>@item.ProductName</h3>
+                                <p>@item.ProductInfo</p>
+                            </div>
+                            <div class="card-btn">
+                                <a class="btn btn-medium btn-blue" href="/home/productInfo/@item.ProductId">Learn more</a>
+                            </div>
                         </div>
                     </div>
-                </div>
             }
         </div>
     </div>
@@ -213,7 +230,7 @@
                     <div class="swiper-slide">
                         <img src="/img/partners-logo/banklar/expressbank.png" alt="">
                     </div>
-                    
+
                     <div class="swiper-slide">
                         <img src="/img/partners-logo/banklar/ABB_Logo.png" alt="">
                     </div>
@@ -251,8 +268,8 @@
                     <img src="/img/location.svg" alt="">
                     <h3>Address</h3>
                     <p>
-                        AZ1010, Baku, Azerbaijan
-                        Ahmad Rajabli, Chinar Park, 1/69
+                        Ziya bunyadov prospekti 90
+                        Minera plaza , 4/2
                     </p>
                 </div>
                 <div class="item">
@@ -275,43 +292,43 @@
                 </div>
             </div>
         </div>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.735688878333!2d49.85662227552761!3d40.41470575576331!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x403087fef0e167f9%3A0x2d47dbedc1eea9e7!2sChinar%20Park!5e0!3m2!1sru!2saz!4v1722613320213!5m2!1sru!2saz"
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5287.217059079478!2d49.862188761449545!3d40.421253163565495!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x403087f677d680c7%3A0x76330b0106f785c4!2sMinera%20Plaza!5e0!3m2!1sru!2saz!4v1747214131424!5m2!1sru!2saz"
                 width="800" height="200" style="border:0;" allowfullscreen="" loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 </section>
 
 @section Scripts {
-    <script>
-        if ($(window).width() >= 768) {
+        <script>
+            if ($(window).width() >= 768) {
 
-            const box = document.querySelector("nav");
-            const svgItem = document.querySelectorAll("nav svg path")
-            const logo = document.querySelector(".nav-left img")
-            if (window.scrollY == 0) {
-                box.classList.remove('nav-scrolled');
-                svgItem.forEach(function (element) {
-                    element.setAttribute('stroke', 'white')
-                })
-                logo.setAttribute('src', '/img/GLOSYS.png')
-            }
-            document.addEventListener('scroll', function () {
-
-                if (window.scrollY > 0) {
-                    box.classList.add('nav-scrolled');
-                    svgItem.forEach(function (element) {
-                        element.setAttribute('stroke', '#002E4C')
-                    })
-                    logo.setAttribute('src', '/img/GLOSYS-dark.png')
-                } else {
+                const box = document.querySelector("nav");
+                const svgItem = document.querySelectorAll("nav svg path")
+                const logo = document.querySelector(".nav-left img")
+                if (window.scrollY == 0) {
                     box.classList.remove('nav-scrolled');
                     svgItem.forEach(function (element) {
                         element.setAttribute('stroke', 'white')
                     })
                     logo.setAttribute('src', '/img/GLOSYS.png')
                 }
-            });
-        }
+                document.addEventListener('scroll', function () {
 
-    </script>
+                    if (window.scrollY > 0) {
+                        box.classList.add('nav-scrolled');
+                        svgItem.forEach(function (element) {
+                            element.setAttribute('stroke', '#002E4C')
+                        })
+                        logo.setAttribute('src', '/img/GLOSYS-dark.png')
+                    } else {
+                        box.classList.remove('nav-scrolled');
+                        svgItem.forEach(function (element) {
+                            element.setAttribute('stroke', 'white')
+                        })
+                        logo.setAttribute('src', '/img/GLOSYS.png')
+                    }
+                });
+            }
+
+        </script>
 }

@@ -4,7 +4,7 @@
     <div class="container">
         <div class="photos">
             <div class="big-photo">
-                <img src="/img/productsPhoto/@Model.ProductPhotos.FirstOrDefault().PhotoName" alt="">
+                <img src="/img/productsPhoto/@Model.ProductPhotos.FirstOrDefault()?.PhotoName" alt="">
             </div>
             <div class="mini-photos">
                 @foreach (ProductPhoto photo in Model.ProductPhotos)

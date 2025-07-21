@@ -476,6 +476,7 @@ footer .logo{
     font-size: 40px;
     color: #22C3F3;
     transform: translateY(-50%);
+    z-index: 90;
 }
 
 .sliders .swiper-button-next {

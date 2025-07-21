@@ -673,6 +673,10 @@ var swiper = new Swiper(".home-products .mySwiper", {
         nextEl: ".home-products .swiper-button-next",
         prevEl: ".home-products .swiper-button-prev",
     },
+    autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+    },
 });
 var swiper = new Swiper(".home-services .mySwiper", {
     slidesPerView: 4,
