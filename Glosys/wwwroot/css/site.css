@@ -61,7 +61,7 @@ a {
     transition: .3s;
 }
 
-    .btn-blue:hover, .nav-scrolled .logout:hover, .modal .modal-title button:hover {
+    .btn-blue:hover, .navnav-scrolled .logout:hover, .modal .modal-title button:hover {
         background-color: #0A4F7D;
         border-color: #0A4F7D;
         color: white;
@@ -174,10 +174,12 @@ img {
 }
 /* NAV */
 nav {
-    position: fixed;
+    position: sticky;
     width: 100%;
     padding: 10px 0;
     z-index: 99;
+    top:0;
+
 }
 
 .nav-scrolled {
@@ -784,7 +786,7 @@ footer .bottom {
 /* PRODUCTS, SERVICES */
 
 .products, .services, .gallery, .projects, .about-page {
-    padding: 120px 0 50px;
+    padding: 50px 0 50px;
 }
 
     .products .bottom,
@@ -1530,7 +1532,7 @@ footer .bottom {
     }
 
     nav {
-        position: absolute;
+        /*position: absolute;*/
         padding: 16px 0 0;
     }
 
@@ -1834,7 +1836,7 @@ footer .bottom {
     .services,
     .about-page,
     .gallery {
-        padding: 94px 0 48px;
+        padding: 48px 0 48px;
     }
 
 
